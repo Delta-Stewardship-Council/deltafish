@@ -32,7 +32,7 @@ surv_FMWT <- surv %>%
     select(SampleID, Date)
 
 fish_smelt <- fish %>% 
-    filter(Taxa == "Taxa=Osmeridae")
+    filter(Taxa == "Taxa=Spirinchus thaleichthys")
 
 # do a join and collect the resulting data frame
 # collect executes the sql query and gives you a table
