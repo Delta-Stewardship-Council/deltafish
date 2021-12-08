@@ -16,11 +16,11 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 DataVersion: 0.1.0
 Imports: 
-    DBI,
+    arrow,
     dbplyr,
     dplyr,
-    duckdb,
-    tidyr
+    tidyr,
 Suggests: 
+    readr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

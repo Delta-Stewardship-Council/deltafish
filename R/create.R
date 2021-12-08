@@ -34,7 +34,7 @@ create_fish_db <- function(){
     surv <- arrow::arrow_table(surv, schema = s)
     
     arrow::write_dataset(surv, "inst/extdata/survey", partitioning = "Source", existing_data_behavior = "overwrite")
-    arrow::write_dataset(read_csv("data-raw/fish_info.csv"), "inst/extdata/fish", partitioning = "Taxa")
-    arrow::write_dataset(read_csv("data-raw/length_conversions.csv"), "inst/extdata/length_conversion")
+    arrow::write_dataset(readr::read_csv("data-raw/fish_info.csv"), "inst/extdata/fish", partitioning = "Taxa")
+    arrow::write_dataset(readr::read_csv("data-raw/length_conversions.csv"), "inst/extdata/length_conversion")
 }
 
