@@ -11,9 +11,9 @@
 #' 
 connect_fish_db <- function(){
     # open dataset
-    survey  <- arrow::open_dataset("inst/extdata/survey", partitioning = "Source")
-    fish  <- arrow::open_dataset("inst/extdata/fish", partitioning = "Taxa")
-    length_conv  <- arrow::open_dataset("inst/extdata/length_conversion/")
+    survey  <- arrow::open_dataset(system.file(package = "deltaFish", "extdata", "survey"), partitioning = "Source")
+    fish  <- arrow::open_dataset(system.file(package = "deltaFish", "extdata", "fish"), partitioning = "Taxa")
+    length_conv  <- arrow::open_dataset(system.file(package = "deltaFish", "extdata", "length_conversion"))
     
     # open connection to DuckDB
     con <- DBI::dbConnect(duckdb::duckdb())
