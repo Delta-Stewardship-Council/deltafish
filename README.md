@@ -17,22 +17,18 @@ devtools::install_github("jeanetteclark/deltaFish")
 library(deltaFish)
 library(dplyr)
 
-# connect to fish database stored in the package
-con <- connect_fish_db()
+# open our two data files
+surv <- open_survey()
+fish <- open_fish()
 
-# grab the two tables we need
-surv <- tbl(con, "survey")
-fish <- tbl(con, "fish")
-
-# do some special filtering
-# syntax is a bit different because are using parquet files
-# see: https://www.richpauloo.com/post/parquet/
+# filter for sources and taxa of interest
 surv_FMWT <- surv %>% 
-    filter(Source == "Source=FMWT") %>% 
+    filter(Source == "FMWT") %>% 
     select(SampleID, Date)
 
 fish_smelt <- fish %>% 
-    filter(Taxa == "Taxa=Spirinchus thaleichthys")
+    filter(Taxa %in% c("Dorosoma petenense", "Morone saxatilis", "Spirinchus thaleichthys"))
+
 
 # do a join and collect the resulting data frame
 # collect executes the sql query and gives you a table
