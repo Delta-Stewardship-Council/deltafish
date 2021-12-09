@@ -3,13 +3,13 @@
 #' Function to create the arrow dataset. Currently hard coded
 #' to look at raw data stored locally. Eventually will look for data
 #' on EDI. Only used to generate the datasets in inst/extdata.
-#'
+#' @import arrow
 #' @return NULL
 #'
 
 create_fish_db <- function(){
     
-    surv <- read.csv("data-raw/survey_info.csv")
+    surv <- utils::read.csv("data-raw/survey_info.csv")
     
     
     s <- arrow::schema(Source = arrow::string(),
