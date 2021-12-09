@@ -2,26 +2,25 @@ Package: deltaFish
 Title: What the Package Does (One Line, Title Case)
 Version: 1.0
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Jeanette",
+           family = "Clark",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "jclark@nceas.ucsb.edu",
+           comment = c(ORCID = "https://orcid.org/0000-0003-4703-1974"))
 Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 DataVersion: 0.1.0
 Depends:
     arrow (>= 6.0.1)
 Imports: 
-    arrow,
     dbplyr,
     dplyr,
-    tidyr,
+    magrittr,
+    rlang,
+    tidyr
 Suggests: 
     readr,
     testthat (>= 3.0.0)
