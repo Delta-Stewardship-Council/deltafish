@@ -25,11 +25,17 @@ create_fish_db <- function(){
     l_pid <- "urn%3Auuid%3A0b0f4e85-23b4-423c-83d1-a9005c587b9f"
     base_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/"
     
-    surv <- utils::read.csv(url(paste0(base_url, survey_pid), method = "libcurl"))
     message("Downloading main fish dataset (~5 GB)")
-    fish <- readr::read_csv(url(paste0(base_url, fish_pid), method = "libcurl"), progress = TRUE, show_col_types = FALSE)
-    lconv <- readr::read_csv(url(paste0(base_url, l_pid), method = "libcurl"), progress = FALSE, show_col_types = FALSE)
+    download.file(paste0(base_url, fish_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "fish.csv"))
+    download.file(paste0(base_url, survey_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "survey.csv"))
+    download.file(paste0(base_url, l_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "legth_conv.csv"))
     
+    message("Reading fish dataset")
+    fish <- readr::read_csv(file.path(tempdir(), "fish.csv"), progress = TRUE, show_col_types = FALSE)
+    surv <- utils::read.csv(file.path(tempdir(), "survey.csv"))
+    lconv <- readr::read_csv(file.path(tempdir(), "legth_conv.csv"), progress = FALSE, show_col_types = FALSE)
+    
+  
     
     s <- arrow::schema(Source = arrow::string(),
                        Station = arrow::string(),
