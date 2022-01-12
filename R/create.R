@@ -11,6 +11,11 @@
 
 create_fish_db <- function(){
     
+    # set timeout to something high
+    timeout <- getOption('timeout')
+    options(timeout = 3600)
+
+    
     # set up cache
     if (!(dir.exists(rappdirs::user_cache_dir("deltaFish")))){
         dir.create(rappdirs::user_cache_dir("deltaFish"), recursive = TRUE)
@@ -55,7 +60,9 @@ create_fish_db <- function(){
                        Tow_area  =arrow::float(),
                        Tow_volume =arrow::float(),
                        Tow_direction = arrow::string())
+    
     message("Setting up arrow tables")
+    
     surv <- arrow::arrow_table(surv, schema = s)
     
     
@@ -65,6 +72,9 @@ create_fish_db <- function(){
     arrow::write_dataset(surv, file.path(rappdirs::user_cache_dir("deltaFish"), "survey"), partitioning = "Source", existing_data_behavior = "overwrite")
     arrow::write_dataset(fish, file.path(rappdirs::user_cache_dir("deltaFish"), "fish"), partitioning = "Taxa")
     arrow::write_dataset(lconv, file.path(rappdirs::user_cache_dir("deltaFish"), "length_conversion"))
+    
+    # reset timeout
+    options(timeout = timeout)
     
     return(rappdirs::user_cache_dir("deltaFish"))
 }
