@@ -13,7 +13,7 @@ create_fish_db <- function(){
     
     # set up cache
     if (!(dir.exists(rappdirs::user_cache_dir("deltaFish")))){
-        dir.create(rappdirs::user_cache_dir("deltaFish"))
+        dir.create(rappdirs::user_cache_dir("deltaFish"), recursive = TRUE)
     } else if (dir.exists(rappdirs::user_cache_dir("deltaFish")) &
                           length(dir(rappdirs::user_cache_dir("deltaFish"), recursive = TRUE) > 0)){
         message("Fish db already exists in cache.")
