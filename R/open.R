@@ -6,7 +6,10 @@
 #' @export
 
 open_survey <- function(){
-    survey  <- arrow::open_dataset(system.file(package = "deltaFish", "extdata", "survey"))
+    if (!(dir.exists(rappdirs::user_cache_dir("deltaFish")))){
+        stop("Cache directory does not exist. Try running `create_fish_db().")
+    }
+    survey  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltaFish"), "survey"))
 }
 
 #' Open fish data
@@ -17,7 +20,10 @@ open_survey <- function(){
 #' @export
 #' 
 open_fish <- function(){
-    fish  <- arrow::open_dataset(system.file(package = "deltaFish", "extdata", "fish"))
+    if (!(dir.exists(rappdirs::user_cache_dir("deltaFish")))){
+        stop("Cache directory does not exist. Try running `create_fish_db().")
+    }
+    fish  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltaFish"), "fish"))
 }
 
 #' Connect length conversion data
@@ -28,5 +34,8 @@ open_fish <- function(){
 #' @export
 
 open_length_conv <- function(){
-    length_conv  <- arrow::open_dataset(system.file(package = "deltaFish", "extdata", "length_conversion"))
+    if (!(dir.exists(rappdirs::user_cache_dir("deltaFish")))){
+        stop("Cache directory does not exist. Try running `create_fish_db().")
+    }
+    survey  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltaFish"), "length_conversion"))
 }
