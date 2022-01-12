@@ -19,6 +19,7 @@ Imports:
     dbplyr,
     dplyr,
     magrittr,
+    rappdirs,
     rlang,
     tidyr
 Suggests: 

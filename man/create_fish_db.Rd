@@ -8,6 +8,6 @@ create_fish_db()
 }
 \description{
 Function to create the arrow dataset. Currently hard coded
-to look at raw data stored locally. Eventually will look for data
-on EDI. Only used to generate the datasets in inst/extdata.
+to look at data stored on the KNB. Eventually will look for data
+on EDI. Only used to generate the datasets in a local cache.
 }

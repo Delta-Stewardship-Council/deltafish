@@ -12,10 +12,16 @@ devtools::install_github("jeanetteclark/deltaFish")
 
 ## Example
 
+First build the database. This takes a bit to run since the source data is large.
 
 ``` r
 library(deltaFish)
-library(dplyr)
+create_fish_db()
+```
+
+Then open and query data.
+
+```r
 
 # open our two data files
 surv <- open_survey()
