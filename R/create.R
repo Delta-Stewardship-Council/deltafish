@@ -26,7 +26,8 @@ create_fish_db <- function(){
     base_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/"
     
     surv <- utils::read.csv(url(paste0(base_url, survey_pid), method = "libcurl"))
-    fish <- readr::read_csv(url(paste0(base_url, fish_pid), method = "libcurl"), progress = FALSE, show_col_types = FALSE)
+    message("Downloading main fish dataset (~5 GB)")
+    fish <- readr::read_csv(url(paste0(base_url, fish_pid), method = "libcurl"), progress = TRUE, show_col_types = FALSE)
     lconv <- readr::read_csv(url(paste0(base_url, l_pid), method = "licburl"), progress = FALSE, show_col_types = FALSE)
     
     
@@ -54,7 +55,7 @@ create_fish_db <- function(){
     
 
     
-    
+    message("Writing arrow dataset to cache")
     arrow::write_dataset(surv, file.path(rappdirs::user_cache_dir("deltaFish"), "survey"), partitioning = "Source", existing_data_behavior = "overwrite")
     arrow::write_dataset(fish, file.path(rappdirs::user_cache_dir("deltaFish"), "fish"), partitioning = "Taxa")
     arrow::write_dataset(lconv, file.path(rappdirs::user_cache_dir("deltaFish"), "length_conversion"))
