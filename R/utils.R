@@ -1,4 +1,4 @@
-#' Show list of cached deltaFish files
+#' Show list of cached deltafish files
 #'
 #' This function returns a list of files cached for the package.
 #'
@@ -6,9 +6,9 @@
 #' @return (list) A list of files
 #' @export
 #'
-show_cache <- function() dir(rappdirs::user_cache_dir("deltaFish"), full.names = TRUE)
+show_cache <- function() dir(rappdirs::user_cache_dir("deltafish"), full.names = TRUE)
 
-#' Clear cached deltaFish files
+#' Clear cached deltafish files
 #'
 #' This function removes all cached files associated with the package
 #'
@@ -17,7 +17,7 @@ show_cache <- function() dir(rappdirs::user_cache_dir("deltaFish"), full.names =
 #' @export
 #'
 clear_cache <- function(){
-    files <- dir(rappdirs::user_cache_dir("deltaFish"), full.names = TRUE, recursive = TRUE)
+    files <- dir(rappdirs::user_cache_dir("deltafish"), full.names = TRUE, recursive = TRUE)
     if (length(files) > 0){
         message("Removing existing cache.")
         lapply(files, file.remove)

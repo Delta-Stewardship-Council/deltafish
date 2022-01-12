@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{clear_cache}
 \alias{clear_cache}
-\title{Clear cached deltaFish files}
+\title{Clear cached deltafish files}
 \usage{
 clear_cache()
 }

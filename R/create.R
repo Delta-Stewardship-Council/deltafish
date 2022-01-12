@@ -17,12 +17,12 @@ create_fish_db <- function(){
 
     
     # set up cache
-    if (!(dir.exists(rappdirs::user_cache_dir("deltaFish")))){
-        dir.create(rappdirs::user_cache_dir("deltaFish"), recursive = TRUE)
-    } else if (dir.exists(rappdirs::user_cache_dir("deltaFish")) &
-                          length(dir(rappdirs::user_cache_dir("deltaFish"), recursive = TRUE) > 0)){
+    if (!(dir.exists(rappdirs::user_cache_dir("deltafish")))){
+        dir.create(rappdirs::user_cache_dir("deltafish"), recursive = TRUE)
+    } else if (dir.exists(rappdirs::user_cache_dir("deltafish")) &
+                          length(dir(rappdirs::user_cache_dir("deltafish"), recursive = TRUE) > 0)){
         message("Fish db already exists in cache.")
-        return(rappdirs::user_cache_dir("deltaFish"))
+        return(rappdirs::user_cache_dir("deltafish"))
     }
     
     fish_pid <- "urn%3Auuid%3A0b5697ac-ee44-42c6-90f3-799eb9e5970e"
@@ -69,15 +69,15 @@ create_fish_db <- function(){
 
     
     message("Writing arrow tables to cache")
-    arrow::write_dataset(surv, file.path(rappdirs::user_cache_dir("deltaFish"), "survey"), partitioning = "Source", existing_data_behavior = "overwrite")
-    arrow::write_dataset(fish, file.path(rappdirs::user_cache_dir("deltaFish"), "fish"), partitioning = "Taxa")
-    arrow::write_dataset(lconv, file.path(rappdirs::user_cache_dir("deltaFish"), "length_conversion"))
+    arrow::write_dataset(surv, file.path(rappdirs::user_cache_dir("deltafish"), "survey"), partitioning = "Source", existing_data_behavior = "overwrite")
+    arrow::write_dataset(fish, file.path(rappdirs::user_cache_dir("deltafish"), "fish"), partitioning = "Taxa")
+    arrow::write_dataset(lconv, file.path(rappdirs::user_cache_dir("deltafish"), "length_conversion"))
     
     # reset timeout
     options(timeout = timeout)
     gc()
     
-    return(rappdirs::user_cache_dir("deltaFish"))
+    return(rappdirs::user_cache_dir("deltafish"))
 }
 
 

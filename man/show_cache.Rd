@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{show_cache}
 \alias{show_cache}
-\title{Show list of cached deltaFish files}
+\title{Show list of cached deltafish files}
 \usage{
 show_cache()
 }
