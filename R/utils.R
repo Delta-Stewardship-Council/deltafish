@@ -20,7 +20,7 @@ clear_cache <- function(){
     files <- dir(rappdirs::user_cache_dir("deltaFish"), full.names = TRUE, recursive = TRUE)
     if (length(files) > 0){
         message("Removing existing cache.")
-        file.remove(rappdirs::user_cache_dir("deltaFish"), recursive = TRUE)
+        lapply(files, file.remove)
         return(NULL)
     } else message("No cache to remove.")
 
