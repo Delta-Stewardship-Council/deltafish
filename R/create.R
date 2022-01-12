@@ -49,13 +49,13 @@ create_fish_db <- function(){
                        Tow_area  =arrow::float(),
                        Tow_volume =arrow::float(),
                        Tow_direction = arrow::string())
-    
+    message("Setting up arrow tables")
     surv <- arrow::arrow_table(surv, schema = s)
     
     
 
     
-    message("Writing arrow dataset to cache")
+    message("Writing arrow tables to cache")
     arrow::write_dataset(surv, file.path(rappdirs::user_cache_dir("deltaFish"), "survey"), partitioning = "Source", existing_data_behavior = "overwrite")
     arrow::write_dataset(fish, file.path(rappdirs::user_cache_dir("deltaFish"), "fish"), partitioning = "Taxa")
     arrow::write_dataset(lconv, file.path(rappdirs::user_cache_dir("deltaFish"), "length_conversion"))
