@@ -2,6 +2,7 @@
 
 export(clear_cache)
 export(convert_lengths)
+export(create_fish_db)
 export(open_fish)
 export(open_length_conv)
 export(open_survey)
