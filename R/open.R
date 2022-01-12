@@ -9,7 +9,11 @@ open_survey <- function(){
     if (!(dir.exists(rappdirs::user_cache_dir("deltaFish")))){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
-    survey  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltaFish"), "survey"))
+    survey <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltaFish"), "survey"))
+    
+    if (length(survey$files) == 0) stop("No survey dataset found. Run create_fish_db() first.")
+    
+    return(survey)
 }
 
 #' Open fish data
@@ -24,6 +28,10 @@ open_fish <- function(){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
     fish  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltaFish"), "fish"))
+    
+    if (length(fish$files) == 0) stop("No fish dataset found. Run create_fish_db() first.")
+    
+    return(fish)
 }
 
 #' Connect length conversion data
@@ -37,5 +45,10 @@ open_length_conv <- function(){
     if (!(dir.exists(rappdirs::user_cache_dir("deltaFish")))){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
-    survey  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltaFish"), "length_conversion"))
+    
+    lconv  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltaFish"), "length_conversion"))
+    
+    if (length(lconv$files) == 0) stop("No length conversion dataset found. Run create_fish_db() first.")
+    
+    return(lconv)
 }
