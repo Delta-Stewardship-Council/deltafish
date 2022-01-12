@@ -75,6 +75,7 @@ create_fish_db <- function(){
     
     # reset timeout
     options(timeout = timeout)
+    gc()
     
     return(rappdirs::user_cache_dir("deltaFish"))
 }
