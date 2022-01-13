@@ -10,7 +10,7 @@ To begin, install the package as below and run `create_fish_db()`. This will dow
 ## Installation
 
 ``` r
-devtools::install_github("jeanetteclark/deltafish")
+devtools::install_github("Delta-Stewardship-Council/deltafish")
 ```
 
 ## Example
