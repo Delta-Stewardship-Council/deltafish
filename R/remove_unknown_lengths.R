@@ -42,7 +42,7 @@ remove_unknown_lengths <- function(data, univariate){
             dplyr::select(.data$Taxa, .data$SampleID) %>%
             dplyr::distinct()
         
-        data_f <- data_prep %>%
+        data_f <- data %>%
             dplyr::anti_join(remove, by=c("Taxa", "SampleID"))
         
     }
