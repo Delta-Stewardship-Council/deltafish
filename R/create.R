@@ -31,9 +31,9 @@ create_fish_db <- function(){
     base_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/"
     
     message("Downloading main fish dataset (~5 GB)")
-    download.file(paste0(base_url, fish_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "fish.csv"))
-    download.file(paste0(base_url, survey_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "survey.csv"))
-    download.file(paste0(base_url, l_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "legth_conv.csv"))
+    utils::download.file(paste0(base_url, fish_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "fish.csv"))
+    utils::download.file(paste0(base_url, survey_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "survey.csv"))
+    utils::download.file(paste0(base_url, l_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "legth_conv.csv"))
     
     message("Reading fish dataset")
     fish <- readr::read_csv(file.path(tempdir(), "fish.csv"), progress = TRUE, show_col_types = FALSE)

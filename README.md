@@ -1,6 +1,10 @@
 
 # deltafish
 
+<!-- badges: start -->
+  [![R-CMD-check](https://github.com/Delta-Stewardship-Council/deltafish/workflows/R-CMD-check/badge.svg)](https://github.com/Delta-Stewardship-Council/deltafish/actions)
+<!-- badges: end -->
+
 The goal of `deltafish` is to provide easy access to the integrated San Fransisco Delta fish dataset. This dataset is published on the KNB currently, eventually to be published with a DOI at EDI. The dataset contains around 70 million rows, which are not easily queryable with normal R techniques. `deltafish` utilizes the R implementation of [Apache Arrow](https://arrow.apache.org/docs/r/) and the [parquet](https://parquet.apache.org/documentation/latest/) data format, along with `dbplyr` to make the process of working with this large dataset much easier on a standard computer. 
 
 You can use `dplyr` verbs to query the arrow dataset in much the same way as you would a `data.frame`. Instead of computing your function return value every time you execute a `dplyr` function call, however, `arrow` builds a query on the backend which is only run when you `collect()` the data. This means you execute far fewer queries and are able to work with the data much more efficiently.
@@ -18,13 +22,15 @@ devtools::install_github("Delta-Stewardship-Council/deltafish")
 First build the database. This takes a bit to run since the source data are large.
 
 ``` r
-library(deltaFish)
+library(deltafish)
 create_fish_db()
 ```
 
 Then open and query data.
 
 ```r
+# dplyr required for queries below
+library(dplyr)
 
 # open our two data files
 surv <- open_survey()

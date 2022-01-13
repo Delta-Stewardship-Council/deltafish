@@ -1,4 +1,4 @@
 library(testthat)
-library(deltaFish)
+library(deltafish)
 
-test_check("deltaFish")
+test_check("deltafish")

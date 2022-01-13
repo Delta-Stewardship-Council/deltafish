@@ -26,6 +26,7 @@ Imports:
     magrittr,
     rappdirs,
     rlang,
+    utils,
     tidyr
 Suggests: 
     readr,
