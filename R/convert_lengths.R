@@ -11,6 +11,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' library(dplyr)
 #' 
 #' fish <- open_fish() %>% 
@@ -18,6 +19,7 @@
 #' 
 #' fish_conv <- convert_lengths(fish) %>% 
 #'     collect()
+#' }
 #' 
 convert_lengths <- function(data){
     
