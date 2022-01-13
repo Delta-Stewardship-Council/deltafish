@@ -1,3 +1,5 @@
+create_fish_db()
+
 test_that("open_survey opens the survey data, and it contains expected variables", {
   surv <- open_survey()
   expect_true("FileSystemDataset" %in% class(surv))
