@@ -16,6 +16,7 @@ data_conv An arrow dataset with converted lengths
 Converts fish length data using the length conversion table. Returns an arrow dataset.
 }
 \examples{
+\dontrun{
 library(dplyr)
 
 fish <- open_fish() \%>\% 
@@ -23,5 +24,6 @@ fish <- open_fish() \%>\%
 
 fish_conv <- convert_lengths(fish) \%>\% 
     collect()
+}
 
 }
