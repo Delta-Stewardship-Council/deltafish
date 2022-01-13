@@ -9,7 +9,7 @@ Authors@R:
            comment = c(ORCID = "https://orcid.org/0000-0003-4703-1974")),
     person(given = "Sam",
            family = "Bashevkin",
-           role = c("aut", "cre"),
+           role = c("aut"),
            email = "sam.bashevkin@deltacouncil.ca.gov",
            comment = c(ORCID = "https://orcid.org/0000-0001-7406-7089")))
 Description: This package enables streamlined access to a large (70 million observation) integreated fish dataset from the San Fransisco Delta. The package downloads published data and stores it in parquet files as an `arrow` dataset in a local cache. Helper functions enable efficient querying of this large dataset.
