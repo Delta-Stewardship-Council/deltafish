@@ -30,17 +30,26 @@ create_fish_db <- function(){
     l_pid <- "urn%3Auuid%3A0b0f4e85-23b4-423c-83d1-a9005c587b9f"
     base_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/"
     
-    message("Downloading main fish dataset (~5 GB)")
+    
+    # fish
+    message("Downloading and writing fish data (~5 GB)")
+    # download
     utils::download.file(paste0(base_url, fish_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "fish.csv"))
-    utils::download.file(paste0(base_url, survey_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "survey.csv"))
-    utils::download.file(paste0(base_url, l_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "legth_conv.csv"))
-    
-    message("Reading fish dataset")
+    # read
     fish <- readr::read_csv(file.path(tempdir(), "fish.csv"), progress = TRUE, show_col_types = FALSE)
-    surv <- utils::read.csv(file.path(tempdir(), "survey.csv"))
-    lconv <- readr::read_csv(file.path(tempdir(), "legth_conv.csv"), progress = FALSE, show_col_types = FALSE)
+    # write
+    arrow::write_dataset(fish, file.path(rappdirs::user_cache_dir("deltafish"), "fish"), partitioning = "Taxa")
     
-  
+    # clean up environment to save memory
+    rm(fish)
+    gc()
+    
+    
+    # survey
+    message("Downloading and writing survey data")
+    # download
+    utils::download.file(paste0(base_url, survey_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "survey.csv"))
+    surv <- utils::read.csv(file.path(tempdir(), "survey.csv"))
     
     s <- arrow::schema(Source = arrow::string(),
                        Station = arrow::string(),
@@ -61,18 +70,20 @@ create_fish_db <- function(){
                        Tow_volume =arrow::float(),
                        Tow_direction = arrow::string())
     
-    message("Setting up arrow tables")
-    
     surv <- arrow::arrow_table(surv, schema = s)
-    
-    
-
-    
-    message("Writing arrow tables to cache")
     arrow::write_dataset(surv, file.path(rappdirs::user_cache_dir("deltafish"), "survey"), partitioning = "Source", existing_data_behavior = "overwrite")
-    arrow::write_dataset(fish, file.path(rappdirs::user_cache_dir("deltafish"), "fish"), partitioning = "Taxa")
-    arrow::write_dataset(lconv, file.path(rappdirs::user_cache_dir("deltafish"), "length_conversion"))
     
+    # length conversion
+    
+    # download
+    utils::download.file(paste0(base_url, l_pid), mode="wb", method="curl", destfile=file.path(tempdir(), "legth_conv.csv"))
+    
+    # read
+    lconv <- readr::read_csv(file.path(tempdir(), "legth_conv.csv"), progress = FALSE, show_col_types = FALSE)
+    
+    # write
+    arrow::write_dataset(lconv, file.path(rappdirs::user_cache_dir("deltafish"), "length_conversion"))
+
     # reset timeout
     options(timeout = timeout)
     gc()
