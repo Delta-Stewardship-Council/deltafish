@@ -22,6 +22,8 @@ Depends:
     arrow (>= 6.0.1)
 Imports: 
     dplyr,
+    dbplyr,
+    duckdb,
     magrittr,
     rappdirs,
     rlang,

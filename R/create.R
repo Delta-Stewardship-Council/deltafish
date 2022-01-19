@@ -25,8 +25,8 @@ create_fish_db <- function(){
         return(rappdirs::user_cache_dir("deltafish"))
     }
     
-    fish_pid <- "urn%3Auuid%3A0b5697ac-ee44-42c6-90f3-799eb9e5970e"
-    survey_pid <- "urn%3Auuid%3Ade32988a-99e9-4887-bb1f-1bd099314ada"
+    fish_pid <- "urn%3Auuid%3A51606605-2d3f-4ca3-b8b4-6bd2116f2e45"
+    survey_pid <- "urn%3Auuid%3Aa9d4961d-411c-4342-ac8a-90b70a31c62b"
     l_pid <- "urn%3Auuid%3A0b0f4e85-23b4-423c-83d1-a9005c587b9f"
     base_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/"
     
