@@ -23,7 +23,7 @@
 #' 
 convert_lengths <- function(data){
     
-    if (!any(c("Taxa", "Length") %in% names(data))){
+    if (!any(c("Taxa", "Length") %in% colnames(data))){
         stop("Input data must have Taxa and Length column names")
     }
     if (!("Source" %in% names(data))){
@@ -47,7 +47,7 @@ convert_lengths <- function(data){
         dplyr::select(-.data$Intercept, -.data$Slope)
     
     # if source wasn't in input data drop it
-    if (!("Source" %in% names(data))){
+    if (!("Source" %in% colnames(data))){
         data_f <- data_f %>%
             dplyr::select(-.data$Source)
     }
