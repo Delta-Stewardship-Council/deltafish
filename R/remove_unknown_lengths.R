@@ -28,7 +28,7 @@ remove_unknown_lengths <- function(data, univariate){
     
     if(!univariate){
         remove <- data %>%
-            dplyr::filter(is.na(.data$Length) & .data$Length_NA_flag == "Unknown length") %>%
+            dplyr::filter(is.na(.data$Length)) %>%
             dplyr::pull(.data$SampleID) %>%
             unique()
         
@@ -38,7 +38,7 @@ remove_unknown_lengths <- function(data, univariate){
     
     if (univariate){
         remove <- data %>%
-            dplyr::filter(is.na(.data$Length) & .data$Length_NA_flag=="Unknown length") %>%
+            dplyr::filter(is.na(.data$Length)) %>%
             dplyr::select(.data$Taxa, .data$SampleID) %>%
             dplyr::distinct()
         
