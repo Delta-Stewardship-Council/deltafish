@@ -14,6 +14,9 @@ create_fish_db <- function(){
     # set timeout to something high
     timeout <- getOption('timeout')
     options(timeout = 3600)
+    
+    #Fixing R CMD check issue with global variable binding:
+    res_fish<-NULL
 
     
     # set up cache
