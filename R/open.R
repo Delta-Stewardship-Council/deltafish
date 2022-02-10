@@ -4,7 +4,7 @@
 #'
 #' @return survey An arrow object that can be treated like a data.frame, with survey data
 #' @importFrom magrittr %>%
-#' @import dplyr
+#' @importFrom dplyr tbl
 #' @export
 
 open_survey <- function(){
@@ -13,7 +13,7 @@ open_survey <- function(){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
     
-    if (!require(dplyr, quietly = TRUE)) {
+    if (!requireNamespace("dplyr", quietly = TRUE)) {
         stop("please install dplyr first")
     }
     
@@ -31,7 +31,7 @@ open_survey <- function(){
 #'
 #' @return fish An arrow object that can be treated like a data.frame, with fish data
 #' @importFrom magrittr %>%
-#' @import dplyr
+#' @importFrom dplyr tbl
 #' @export
 #' 
 open_fish <- function(){
@@ -39,7 +39,7 @@ open_fish <- function(){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
     
-    if (!require(dplyr, quietly = TRUE)) {
+    if (!requireNamespace("dplyr", quietly = TRUE)) {
         stop("please install dplyr first")
     }
     
@@ -57,7 +57,7 @@ open_fish <- function(){
 #'
 #' @return fish An arrow object that can be treated like a data.frame, with length conversion data
 #' @importFrom magrittr %>%
-#' @import dplyr
+#' @importFrom dplyr tbl
 #' @export
 
 open_length_conv <- function(){
@@ -65,7 +65,7 @@ open_length_conv <- function(){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
     
-    if (!require(dplyr, quietly = TRUE)) {
+    if (!requireNamespace("dplyr", quietly = TRUE)) {
         stop("please install dplyr first")
     }
     
