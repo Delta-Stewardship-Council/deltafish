@@ -30,15 +30,15 @@ create_fish_db <- function(){
     
     #TODO: set up version checking for these URIs
     
-    binary_url <- "https://portal-s.edirepository.org/nis/dataviewer?packageid=edi.746.1&entityid=926f4aa8484f185b69bc1827fa67d40c"
-    length_url <- "https://portal-s.edirepository.org/nis/dataviewer?packageid=edi.746.1&entityid=2933237df1902243b4307f082bdc7d18"
+    binary_url <- "https://portal.edirepository.org/nis/dataviewer?packageid=edi.1075.1&entityid=926f4aa8484f185b69bc1827fa67d40c"
+    length_url <- "https://portal.edirepository.org/nis/dataviewer?packageid=edi.1075.1&entityid=2933237df1902243b4307f082bdc7d18"
     
     # fish
     message("Downloading and writing fish data (~5 GB)")
     # download
-    utils::download.file(binary_url, mode="wb", method="curl", destfile=file.path(tempdir(), "fishsurvey_compressed.rds"))
+    utils::download.file(binary_url, mode="wb", method="curl", destfile=file.path(tempdir(), "fishsurvey_compressed.rda"))
     # read
-    load(file.path(tempdir(), "fishsurvey_compressed.rds"))
+    load(file.path(tempdir(), "fishsurvey_compressed.rda"))
     # write
     arrow::write_dataset(res_fish, file.path(rappdirs::user_cache_dir("deltafish"), "fish"), partitioning = "Taxa")
     
