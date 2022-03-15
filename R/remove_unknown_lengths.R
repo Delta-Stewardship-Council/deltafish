@@ -26,7 +26,7 @@ remove_unknown_lengths <- function(data, univariate){
         stop("Input data must have Length column name")
     }
     
-    if(!univariate){
+    if (!univariate){
         remove <- data %>%
             dplyr::filter(is.na(.data$Length)) %>%
             dplyr::pull(.data$SampleID) %>%
