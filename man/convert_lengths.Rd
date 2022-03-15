@@ -14,6 +14,7 @@ data_conv An arrow dataset with converted lengths
 }
 \description{
 Converts fish length data using the length conversion table. Returns an arrow dataset.
+This function is only needed to convert Suisun survey data.
 }
 \examples{
 \dontrun{
