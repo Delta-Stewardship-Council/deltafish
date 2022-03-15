@@ -1,5 +1,6 @@
 test_that("remove_unknown_lengths removes rows", {
-    surv <- open_survey() 
+    surv <- open_survey() %>% 
+        filter(Source == "Suisun")
     
     fish <- open_fish() %>% 
         dplyr::filter(Taxa == "Alosa sapidissima")
