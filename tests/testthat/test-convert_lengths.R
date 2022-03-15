@@ -35,6 +35,6 @@ test_that("Converting lengths does not change the number of rows or columns or t
         collect()
     
     expect_equal(nrow(df_converted), nrow(df_unconverted))
-    expect_setequal(names(df_converted), names(df_unconverted))
+    expect_setequal(colnames(df_converted), colnames(df_unconverted))
     expect_equal(sum(df_converted$Count, na.rm=T), sum(df_unconverted$Count, na.rm=T))
 })
