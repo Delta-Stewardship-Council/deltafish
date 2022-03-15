@@ -13,12 +13,7 @@ open_survey <- function(){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
     
-    if (!requireNamespace("dplyr", quietly = TRUE)) {
-        stop("please install dplyr first")
-    }
-    
-    survey <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltafish"), "survey")) %>% 
-        arrow::to_duckdb(auto_disconnect = TRUE)
+    survey <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltafish"), "survey"))
     
     #if (length(survey$files) == 0) stop("No survey dataset found. Run create_fish_db() first.")
     
@@ -39,12 +34,7 @@ open_fish <- function(){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
     
-    if (!requireNamespace("dplyr", quietly = TRUE)) {
-        stop("please install dplyr first")
-    }
-    
-    fish  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltafish"), "fish")) %>% 
-        arrow::to_duckdb(auto_disconnect = TRUE)
+    fish  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltafish"), "fish"))
     
     #if (length(fish$files) == 0) stop("No fish dataset found. Run create_fish_db() first.")
     
@@ -65,12 +55,7 @@ open_length_conv <- function(){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
     
-    if (!requireNamespace("dplyr", quietly = TRUE)) {
-        stop("please install dplyr first")
-    }
-    
-    lconv  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltafish"), "length_conversion")) %>% 
-        arrow::to_duckdb(auto_disconnect = TRUE)
+    lconv  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltafish"), "length_conversion"))
     
     #if (length(lconv$files) == 0) stop("No length conversion dataset found. Run create_fish_db() first.")
     

@@ -57,7 +57,7 @@ create_fish_db <- function(){
                        Datetime = arrow::string(),
                        Survey  = arrow::int64(),
                        Depth  = arrow::float(),
-                       SampleID  = arrow::large_utf8(),
+                       SampleID  = arrow::string(),
                        Method  = arrow::string(),
                        Tide   = arrow::string(),
                        Sal_surf   = arrow::float(),

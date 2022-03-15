@@ -22,7 +22,7 @@
 
 remove_unknown_lengths <- function(data, univariate){
     
-    if (!any(c("Length") %in% colnames(data))){
+    if (!any(c("Length") %in% names(data))){
         stop("Input data must have Length column name")
     }
     
