@@ -7,7 +7,7 @@
 open_length_conv()
 }
 \value{
-fish An arrow object that can be treated like a data.frame, with length conversion data
+An arrow object that can be treated like a data.frame, with length conversion data
 }
 \description{
 Connect to the length conversion data stored in the package

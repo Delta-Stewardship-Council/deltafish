@@ -2,13 +2,13 @@
 % Please edit documentation in R/open.R
 \name{open_fish}
 \alias{open_fish}
-\title{Open fish data}
+\title{Connect fish data}
 \usage{
 open_fish()
 }
 \value{
-fish An arrow object that can be treated like a data.frame, with fish data
+An arrow object that can be treated like a data.frame, with fish data
 }
 \description{
-Open the survey data stored in the package
+Connect to the fish data stored in the package
 }
