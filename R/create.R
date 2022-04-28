@@ -45,18 +45,18 @@ create_fish_db_f <- function(data_dir, cache_dir){
         
         length_loc <- "https://portal.edirepository.org/nis/dataviewer?packageid=edi.1075.1&entityid=2933237df1902243b4307f082bdc7d18"
         # download
-        utils::download.file(length_loc, mode="wb", method="curl", destfile=file.path(tempdir(), "legth_conv.csv"))
+        utils::download.file(length_loc, mode="wb", method="curl", destfile=file.path(tempdir(), "Length_conversions.csv"))
         # read
-        lconv <- readr::read_csv(file.path(tempdir(), "legth_conv.csv"), progress = FALSE, show_col_types = FALSE)
+        lconv <- readr::read_csv(file.path(tempdir(), "Length_conversions.csv"), progress = FALSE, show_col_types = FALSE)
         
     } else if (!is.null(data_dir)){
         
-        if (!all(c("length_conv.csv", "fishsurvey_compressed.rda") %in% dir(data_dir))){
+        if (!all(c("Length_conversions.csv", "fishsurvey_compressed.rda") %in% dir(data_dir))){
             stop("Data directory must contain both length_conv.csv and fishsurvey_compressed.rda.")
         }
         
         load(file.path(data_dir, "fishsurvey_compressed.rda"))
-        lconv <- readr::read_csv(file.path(data_dir, "length_conv.csv"), progress = FALSE, show_col_types = FALSE)
+        lconv <- readr::read_csv(file.path(data_dir, "Length_conversions.csv"), progress = FALSE, show_col_types = FALSE)
         
     }
     # write
@@ -99,7 +99,7 @@ create_fish_db_f <- function(data_dir, cache_dir){
     
     # length conversion
     
-   
+    
     # write
     arrow::write_dataset(lconv, file.path(rappdirs::user_cache_dir(cache_dir), "length_conversion"))
     
@@ -126,9 +126,9 @@ create_fish_db_f <- function(data_dir, cache_dir){
 #'
 
 create_fish_db <- function(){
-   
+    
     create_fish_db_f(data_dir = NULL, cache_dir = "deltafish") 
-   
+    
 }
 
 
