@@ -8,6 +8,25 @@
 #'
 show_cache <- function() dir(rappdirs::user_cache_dir("deltafish"), full.names = TRUE)
 
+#' Clear cached deltafish files (internal)
+#'
+#' This function removes all cached files associated with the package
+#' and allows you to set the cache_dir
+#'
+#' @return (NULL) 
+#' @noRd
+#' 
+clear_cache_f <- function(cache_dir){
+    files <- dir(rappdirs::user_cache_dir(cache_dir), full.names = TRUE, recursive = TRUE)
+    if (length(files) > 0){
+        message("Removing existing cache.")
+        lapply(files, file.remove)
+        return(NULL)
+    } else message("No cache to remove.")
+
+} 
+
+
 #' Clear cached deltafish files
 #'
 #' This function removes all cached files associated with the package
@@ -17,11 +36,6 @@ show_cache <- function() dir(rappdirs::user_cache_dir("deltafish"), full.names =
 #' @export
 #'
 clear_cache <- function(){
-    files <- dir(rappdirs::user_cache_dir("deltafish"), full.names = TRUE, recursive = TRUE)
-    if (length(files) > 0){
-        message("Removing existing cache.")
-        lapply(files, file.remove)
-        return(NULL)
-    } else message("No cache to remove.")
+    clear_cache_f(cache_dir = "deltafish")
+}
 
-} 
