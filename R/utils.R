@@ -11,8 +11,8 @@ show_cache <- function() dir(rappdirs::user_cache_dir("deltafish"), full.names =
 
 
 file_remove_tryer <- function(x){
-    tryCatch({file.remove},
-         error = function(x){print(x); message("If you get a permissions error, try restarting R and then clearing your cache.")}
+    tryCatch({file.remove(x)},
+         error = function(y){print(y); message("If you get a permissions error, try restarting R and then clearing your cache.")}
     )
 }
 
