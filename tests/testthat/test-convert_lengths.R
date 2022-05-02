@@ -4,7 +4,9 @@ length_conv <- open_length_conv()
 
 test_that("lengths are converted correctly", {
     surv_s <- surv %>% 
+        dplyr::select(Source, SampleID) %>% 
         dplyr::filter(SampleID == "Suisun {AECF75CB-5BD4-11D4-B974-006008C01BCF}")
+    
     fish_s <- fish %>% 
         dplyr::filter(Taxa == "Alosa sapidissima")
     
@@ -27,6 +29,7 @@ test_that("lengths are converted correctly", {
 test_that("Converting lengths does not change the number of rows or columns or the total catch", {
     
     surv_s <- surv %>% 
+        dplyr::select(Source, SampleID) %>% 
         dplyr::filter(Source == "Suisun")
     
     fish_s <- fish %>% 
@@ -41,4 +44,18 @@ test_that("Converting lengths does not change the number of rows or columns or t
     expect_equal(nrow(df_converted), nrow(df_unconverted))
     expect_setequal(colnames(df_converted), colnames(df_unconverted))
     expect_equal(sum(df_converted$Count, na.rm=T), sum(df_unconverted$Count, na.rm=T))
+})
+
+test_that("Converting lengths does not induce lengths <= 0", {
+    
+    surv_s <- surv %>% 
+        dplyr::select(Source, SampleID) %>% 
+        dplyr::filter(Source == "Suisun")
+    
+    df_less_0 <- dplyr::inner_join(fish, surv_s) %>%
+        convert_lengths() %>% 
+        dplyr::filter(Length <= 0)
+    
+    expect_equal(nrow(df_less_0), 0)
+
 })
