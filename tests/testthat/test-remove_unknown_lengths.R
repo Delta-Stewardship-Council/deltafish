@@ -21,6 +21,6 @@ test_that("remove_unknown_lengths removes rows as expected", {
         collect()
     
     expect_true(nrow(df_full) > nrow(df_removed_u) & nrow(df_removed_u) > nrow(df_removed_nu))
-    expect_true(length(which(is.na(df_removed$Length))) == 0 & length(which(is.na(df_removed_u$Length))) == 0)
+    expect_true(length(which(is.na(df_removed_nu$Length))) == 0 & length(which(is.na(df_removed_u$Length))) == 0)
 
 })
