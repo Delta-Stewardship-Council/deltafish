@@ -59,3 +59,27 @@ test_that("Converting lengths does not induce lengths <= 0", {
     expect_equal(nrow(df_less_0), 0)
 
 })
+
+test_that("Converting lengths does not affect non-Suisun data", {
+    
+    surv_s <- surv %>% 
+        dplyr::select(Source, SampleID) %>% 
+        dplyr::group_by(Source) %>% 
+        dplyr::slice_min(SampleId, n = 5)
+    
+    df_converted <- dplyr::inner_join(fish, surv_s) %>%
+        convert_lengths() %>% 
+        dplyr::arrange(SampleID) %>% 
+        dplyr::filter(Source != "Suisun" & !is.na(Length)) 
+    
+    df_unconverted <- dplyr::inner_join(fish, surv_s) %>%
+        collect() %>% 
+        dplyr::arrange(SampleID) %>% 
+        filter(Source != "Suisun" & !is.na(Length))
+    
+
+    
+    expect_true(all(df_converted$Length == df_unconverted$Length))
+    
+})
+
