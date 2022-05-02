@@ -76,10 +76,8 @@ test_that("Converting lengths does not affect non-Suisun data", {
         collect() %>% 
         dplyr::arrange(SampleID) %>% 
         filter(Source != "Suisun" & !is.na(Length))
-    
 
     
     expect_true(all(df_converted$Length == df_unconverted$Length))
     
 })
-
