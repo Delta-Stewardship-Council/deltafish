@@ -69,13 +69,13 @@ test_that("Converting lengths does not affect non-Suisun data", {
     
     df_converted <- dplyr::inner_join(fish, surv_s) %>%
         convert_lengths() %>% 
-        dplyr::arrange(SampleID) %>% 
-        dplyr::filter(Source != "Suisun" & !is.na(Length)) 
+        dplyr::filter(Source != "Suisun" & !is.na(Length)) %>% 
+        dplyr::arrange(SampleID)
     
     df_unconverted <- dplyr::inner_join(fish, surv_s) %>%
         collect() %>% 
-        dplyr::arrange(SampleID) %>% 
-        filter(Source != "Suisun" & !is.na(Length))
+        filter(Source != "Suisun" & !is.na(Length)) %>% 
+        dplyr::arrange(SampleID)
 
     
     expect_true(all(df_converted$Length == df_unconverted$Length))
