@@ -20,7 +20,10 @@ clear_cache_f <- function(cache_dir){
     files <- dir(rappdirs::user_cache_dir(cache_dir), full.names = TRUE, recursive = TRUE)
     if (length(files) > 0){
         message("Removing existing cache.")
-        lapply(files, file.remove)
+        tryCatch({lapply(files, file.remove)},
+                 error = function(x){print(x); message("If you get a permissions error, try restarting R and then clearing your cache.")
+                     }
+                 )
         return(NULL)
     } else message("No cache to remove.")
 
