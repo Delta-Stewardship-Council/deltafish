@@ -24,3 +24,6 @@ test_that("remove_unknown_lengths removes rows as expected", {
     expect_true(length(which(is.na(df_removed_nu$Length))) == 0 & length(which(is.na(df_removed_u$Length))) == 0)
 
 })
+
+rm(list = ls())
+gc()
