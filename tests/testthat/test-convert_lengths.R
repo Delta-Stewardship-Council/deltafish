@@ -1,16 +1,20 @@
+surv <- open_survey()
+fish <- open_fish()
+length_conv <- open_length_conv()
+
 test_that("lengths are converted correctly", {
-    surv <- open_survey() %>% 
+    surv_s <- surv %>% 
         dplyr::filter(SampleID == "Suisun {AECF75CB-5BD4-11D4-B974-006008C01BCF}")
-    fish <- open_fish() %>% 
+    fish_s <- fish %>% 
         dplyr::filter(Taxa == "Alosa sapidissima")
     
-    df_converted <- dplyr::inner_join(fish, surv) %>%
+    df_converted <- dplyr::inner_join(fish_s, surv_s) %>%
         convert_lengths()
         
-    df_unconverted <- dplyr::inner_join(fish, surv) %>% 
+    df_unconverted <- dplyr::inner_join(fish_s, surv_s) %>% 
         collect()
     
-    l <- open_length_conv() %>% 
+    l <- length_conv %>% 
         collect() %>% 
         filter(Species == "Alosa sapidissima")
     
@@ -22,16 +26,16 @@ test_that("lengths are converted correctly", {
 
 test_that("Converting lengths does not change the number of rows or columns or the total catch", {
     
-    surv <- open_survey() %>% 
+    surv_s <- surv %>% 
         dplyr::filter(Source == "Suisun")
     
-    fish <- open_fish() %>% 
+    fish_s <- fish %>% 
         dplyr::filter(Taxa == "Alosa sapidissima")
     
-    df_converted <- dplyr::inner_join(fish, surv) %>%
+    df_converted <- dplyr::inner_join(fish_s, surv_s) %>%
         convert_lengths()
     
-    df_unconverted <- dplyr::inner_join(fish, surv) %>% 
+    df_unconverted <- dplyr::inner_join(fish_s, surv_s) %>% 
         collect()
     
     expect_equal(nrow(df_converted), nrow(df_unconverted))
