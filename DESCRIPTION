@@ -22,14 +22,13 @@ Depends:
     arrow (>= 6.0.1),
     dplyr
 Imports: 
-    dbplyr,
     duckdb,
     magrittr,
     rappdirs,
     rlang,
-    utils,
-    tidyr
+    utils
 Suggests: 
     readr,
+    tidyr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
