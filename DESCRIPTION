@@ -20,7 +20,8 @@ RoxygenNote: 7.1.2
 DataVersion: 0.1.0
 Depends:
     arrow (>= 6.0.1),
-    dplyr
+    dplyr,
+    dbplyr
 Imports: 
     duckdb,
     magrittr,
