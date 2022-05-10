@@ -23,7 +23,7 @@ create_fish_db_f <- function(data_dir, cache_dir){
     if (!(dir.exists(rappdirs::user_cache_dir(cache_dir)))){
         dir.create(rappdirs::user_cache_dir(cache_dir), recursive = TRUE)
     } else if (dir.exists(rappdirs::user_cache_dir(cache_dir)) &
-               length(dir(rappdirs::user_cache_dir(cache_dir), recursive = TRUE) > 0)){
+               length(dir(rappdirs::user_cache_dir(cache_dir), recursive = TRUE) > 9)){
         message("Fish db already exists in cache directory")
         return(rappdirs::user_cache_dir(cache_dir))
     }
