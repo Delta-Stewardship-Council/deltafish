@@ -26,6 +26,13 @@ file_remove_tryer <- function(x){
 #' @noRd
 #' 
 clear_cache_f <- function(cache_dir){
+    
+    a <- getOption("arrow_duck_con")
+    
+    if (!is.null(a) & .Platform$OS.type == "windows"){
+        message("Windows machines with open connections to the database sometimes cannot remove the `deltafish` cache. Please restart R and then run `clear_cache()`.")
+    }
+    
     files <- dir(rappdirs::user_cache_dir(cache_dir), full.names = TRUE, recursive = TRUE)
     if (length(files) > 0){
         message("Removing existing cache.")
@@ -33,6 +40,7 @@ clear_cache_f <- function(cache_dir){
         return(invisible(NULL))
     } else {
         message("No cache to remove.")
+        return(invisible(NULL))
     }
 
 } 
