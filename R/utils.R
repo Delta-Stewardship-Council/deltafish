@@ -8,15 +8,6 @@
 #'
 show_cache <- function() dir(rappdirs::user_cache_dir("deltafish"), full.names = TRUE)
 
-
-
-file_remove_tryer <- function(x){
-    tryCatch({file.remove(x)},
-         error = function(y){print(y); message("If you get a permissions error, try restarting R and then clearing your cache."); return(invisible(NULL))},
-         warning = function(y){print(y); message("If you get a permissions error, try restarting R and then clearing your cache."); return(invisible(NULL))}
-    )
-}
-
 #' Clear cached deltafish files (internal)
 #'
 #' This function removes all cached files associated with the package
@@ -36,12 +27,19 @@ clear_cache_f <- function(cache_dir){
     files <- dir(rappdirs::user_cache_dir(cache_dir), full.names = TRUE, recursive = TRUE)
     if (length(files) > 0){
         message("Removing existing cache.")
-        lapply(files, file_remove_tryer)
-        return(invisible(NULL))
+        lapply(files, function(x){
+            suppressWarnings(file.remove(x))
+        })
     } else {
         message("No cache to remove.")
-        return(invisible(NULL))
     }
+    
+    files <- dir(rappdirs::user_cache_dir(cache_dir), full.names = TRUE, recursive = TRUE)
+    if (length(files) > 0){
+        warning("Cache not fully removed.")
+    }
+    
+    return(invisible(NULL))
 
 } 
 
