@@ -26,10 +26,10 @@ Imports:
     duckdb,
     magrittr,
     rappdirs,
+    readr,
     rlang,
     utils
 Suggests: 
-    readr,
     tidyr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

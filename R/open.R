@@ -17,7 +17,7 @@ open_survey_f <- function(cache_dir){
     }
     
     survey <- arrow::open_dataset(file.path(rappdirs::user_cache_dir(cache_dir), "survey")) %>% 
-        arrow::to_duckdb(auto_disconnect = TRUE)
+        arrow::to_duckdb(auto_disconnect = FALSE)
     
     #if (length(survey$files) == 0) stop("No survey dataset found. Run create_fish_db() first.")
     
@@ -42,7 +42,7 @@ open_fish_f <- function(cache_dir){
     }
     
     fish  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir(cache_dir), "fish")) %>% 
-        arrow::to_duckdb(auto_disconnect = TRUE)
+        arrow::to_duckdb(auto_disconnect = FALSE)
     
     return(fish)
 }
@@ -65,7 +65,7 @@ open_length_conv_f <- function(cache_dir){
     }
     
     lconv  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir(cache_dir), "length_conversion")) %>% 
-        arrow::to_duckdb(auto_disconnect = TRUE)
+        arrow::to_duckdb(auto_disconnect = FALSE)
     
     #if (length(lconv$files) == 0) stop("No length conversion dataset found. Run create_fish_db() first.")
     

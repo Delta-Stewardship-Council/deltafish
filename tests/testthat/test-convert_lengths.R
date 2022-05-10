@@ -79,7 +79,7 @@ test_that("Converting lengths does not affect non-Suisun data", {
         dplyr::arrange(SampleID)
 
     
-    expect_true(all(df_converted$Length == df_unconverted$Length))
+    expect_true(all(near(df_converted$Length, df_unconverted$Length)))
     
 })
 
