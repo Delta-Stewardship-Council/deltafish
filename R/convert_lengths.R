@@ -31,20 +31,26 @@ convert_lengths <- function(data){
         surv <- open_survey() %>% 
             dplyr::select(.data$SampleID, .data$Source)
         
-        data_prep <- dplyr::left_join(data, surv) %>% dplyr::collect()
-    } else data_prep <- data %>% dplyr::collect()
+        data_prep <- dplyr::left_join(data, surv)
+    } else data_prep <- data
     
-    if (!("Suisun" %in% unique(data_prep$Source))){
+    sources<-data_prep%>%
+        dplyr::distinct(.data$Source)%>%
+        dplyr::collect()%>%
+        dplyr::pull(.data$Source)
+    
+    if (!("Suisun" %in% sources)){
         warning("No Suisun data found in input data. This function only operates on Suisun data.")
         return(data)
     }
     
-    length_conv <- open_length_conv() 
     
-    l <- length_conv %>% 
-        dplyr::collect()
+    l <- open_length_conv()
     
-    sp <- unique(l$Species)
+    sp <- l%>%
+        dplyr::distinct(.data$Species)%>%
+        dplyr::collect()%>%
+        dplyr::pull(.data$Species)
     
     data_f <- data_prep %>%
         dplyr::left_join(l, by = c("Taxa" = "Species")) %>%

@@ -11,17 +11,20 @@ test_that("lengths are converted correctly", {
         dplyr::filter(Taxa == "Alosa sapidissima")
     
     df_converted <- dplyr::inner_join(fish_s, surv_s) %>%
-        convert_lengths()
-        
+        convert_lengths()%>% 
+        dplyr::select(Length)%>%
+        collect()
+    
     df_unconverted <- dplyr::inner_join(fish_s, surv_s) %>% 
+        dplyr::select(Length)%>%
         collect()
     
     l <- length_conv %>% 
         collect() %>% 
-        filter(Species == "Alosa sapidissima")
+        dplyr::filter(Species == "Alosa sapidissima")
     
     expect_equal(df_converted$Length, df_unconverted$Length*l$Slope + l$Intercept)
-
+    
     
 })
 
@@ -35,15 +38,22 @@ test_that("Converting lengths does not change the number of rows or columns or t
     fish_s <- fish %>% 
         dplyr::filter(Taxa == "Alosa sapidissima")
     
-    df_converted <- dplyr::inner_join(fish_s, surv_s) %>%
-        convert_lengths()
+    df_converted <- dplyr::inner_join(fish_s, surv_s) 
     
-    df_unconverted <- dplyr::inner_join(fish_s, surv_s) %>% 
+    df_converted_col<-df_converted%>%
+        convert_lengths()%>% 
+        dplyr::summarise(N=dplyr::n(), Count_sum=sum(Count, na.rm=T))%>%
         collect()
     
-    expect_equal(nrow(df_converted), nrow(df_unconverted))
+    df_unconverted <- dplyr::inner_join(fish_s, surv_s) 
+    
+    df_unconverted_col<-df_unconverted%>% 
+        dplyr::summarise(N=dplyr::n(), Count_sum=sum(Count, na.rm=T))%>%
+        collect()
+    
+    expect_equal(df_converted_col$N, df_unconverted_col$N)
     expect_setequal(colnames(df_converted), colnames(df_unconverted))
-    expect_equal(sum(df_converted$Count, na.rm=T), sum(df_unconverted$Count, na.rm=T))
+    expect_equal(df_converted_col$Count_sum, df_unconverted_col$Count_sum)
 })
 
 test_that("Converting lengths does not induce lengths <= 0", {
@@ -55,10 +65,11 @@ test_that("Converting lengths does not induce lengths <= 0", {
     
     df_less_0 <- dplyr::inner_join(fish, surv_s) %>%
         convert_lengths() %>% 
-        dplyr::filter(Length <= 0)
+        dplyr::filter(Length <= 0)%>%
+        collect()
     
     expect_equal(nrow(df_less_0), 0)
-
+    
 })
 
 test_that("Converting lengths does not affect non-Suisun data", {
@@ -71,13 +82,16 @@ test_that("Converting lengths does not affect non-Suisun data", {
     df_converted <- dplyr::inner_join(fish, surv_s) %>%
         convert_lengths() %>% 
         dplyr::filter(Source != "Suisun" & !is.na(Length)) %>% 
-        dplyr::arrange(SampleID)
+        dplyr::select(SampleID, Taxa, Length)%>%
+        collect()%>%
+        dplyr::arrange(SampleID, Taxa, Length)
     
-    df_unconverted <- dplyr::inner_join(fish, surv_s) %>%
-        collect() %>% 
-        filter(Source != "Suisun" & !is.na(Length)) %>% 
-        dplyr::arrange(SampleID)
-
+    df_unconverted <- dplyr::inner_join(fish, surv_s)%>% 
+        dplyr::filter(Source != "Suisun" & !is.na(Length)) %>% 
+        dplyr::select(SampleID, Taxa, Length)%>%
+        collect()%>%
+        dplyr::arrange(SampleID, Taxa, Length)
+    
     
     expect_true(all(near(df_converted$Length, df_unconverted$Length)))
     
