@@ -7,7 +7,6 @@
 create_fish_db()
 }
 \description{
-Function to create the arrow dataset. Currently hard coded
-to look at data stored on the KNB. Eventually will look for data
-on EDI. Only used to generate the datasets in a local cache.
+Function to create the arrow dataset. Reads in raw data from the
+published \href{https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075&revision=1}{EDI dataset}.
 }

@@ -1,63 +1,107 @@
-#' Open survey data
-#' 
-#' Open the survey data stored in the package
+#' Connect survey data (internal)
 #'
+#' @param cache_dir name of cache directory
 #' @return survey An arrow object that can be treated like a data.frame, with survey data
 #' @importFrom magrittr %>%
 #' @importFrom dplyr tbl
-#' @export
+#' @noRd
 
-open_survey <- function(){
+open_survey_f <- function(cache_dir){
     
-    if (!(dir.exists(rappdirs::user_cache_dir("deltafish")))){
+    if (!(dir.exists(rappdirs::user_cache_dir(cache_dir)))){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
     
-    survey <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltafish"), "survey"))
+    if (!requireNamespace("dplyr", quietly = TRUE)) {
+        stop("please install dplyr first")
+    }
     
-    #if (length(survey$files) == 0) stop("No survey dataset found. Run create_fish_db() first.")
+    survey <- arrow::open_dataset(file.path(rappdirs::user_cache_dir(cache_dir), "survey"))
     
     return(survey)
 }
 
-#' Open fish data
-#' 
-#' Open the survey data stored in the package
+#' Connect fish data (internal)
 #'
+#' @param cache_dir A cache directory name
 #' @return fish An arrow object that can be treated like a data.frame, with fish data
 #' @importFrom magrittr %>%
 #' @importFrom dplyr tbl
-#' @export
-#' 
-open_fish <- function(){
-    if (!(dir.exists(rappdirs::user_cache_dir("deltafish")))){
+#' @noRd
+
+open_fish_f <- function(cache_dir){
+    if (!(dir.exists(rappdirs::user_cache_dir(cache_dir)))){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
     
-    fish  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltafish"), "fish"))
+    if (!requireNamespace("dplyr", quietly = TRUE)) {
+        stop("please install dplyr first")
+    }
     
-    #if (length(fish$files) == 0) stop("No fish dataset found. Run create_fish_db() first.")
+    fish  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir(cache_dir), "fish"))
     
     return(fish)
+}
+
+#' Connect length conversion data (internal)
+#'
+#' @param cache_dir A cache directory name
+#' @return An arrow object that can be treated like a data.frame, with length conversion data
+#' @importFrom magrittr %>%
+#' @importFrom dplyr tbl
+#' @noRd
+
+open_length_conv_f <- function(cache_dir){
+    if (!(dir.exists(rappdirs::user_cache_dir(cache_dir)))){
+        stop("Cache directory does not exist. Try running `create_fish_db().")
+    }
+    
+    if (!requireNamespace("dplyr", quietly = TRUE)) {
+        stop("please install dplyr first")
+    }
+    
+    lconv  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir(cache_dir), "length_conversion"))
+    
+    return(lconv)
+}
+
+
+#' Connect fish data
+#' 
+#' Connect to the fish data stored in the package
+#'
+#' @return An arrow object that can be treated like a data.frame, with fish data
+#' @export
+
+open_fish <- function(){
+    
+    lconv <- open_fish_f(cache_dir = "deltafish")
+    
+    return(lconv)
+}
+
+#' Connect survey data
+#' 
+#' Connect to the survey data stored in the package
+#'
+#' @return An arrow object that can be treated like a data.frame, with survey data
+#' @export
+
+open_survey <- function(){
+    
+    survey <- open_survey_f(cache_dir = "deltafish")
+    return(survey)
 }
 
 #' Connect length conversion data
 #' 
 #' Connect to the length conversion data stored in the package
 #'
-#' @return fish An arrow object that can be treated like a data.frame, with length conversion data
-#' @importFrom magrittr %>%
-#' @importFrom dplyr tbl
+#' @return An arrow object that can be treated like a data.frame, with length conversion data
 #' @export
 
 open_length_conv <- function(){
-    if (!(dir.exists(rappdirs::user_cache_dir("deltafish")))){
-        stop("Cache directory does not exist. Try running `create_fish_db().")
-    }
     
-    lconv  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir("deltafish"), "length_conversion"))
-    
-    #if (length(lconv$files) == 0) stop("No length conversion dataset found. Run create_fish_db() first.")
-    
+    lconv <- open_length_conv_f(cache_dir = "deltafish")
     return(lconv)
 }

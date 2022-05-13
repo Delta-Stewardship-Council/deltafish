@@ -1,6 +1,7 @@
 #' Convert fish length
 #' 
 #' Converts fish length data using the length conversion table. Returns an arrow dataset.
+#' This function is only needed to convert Suisun survey data.
 #'
 #' @param data An arrow dataset of fish data. See `open_fish()`
 #' 
@@ -23,7 +24,7 @@
 #' 
 convert_lengths <- function(data){
     
-    if (!any(c("Taxa", "Length") %in% colnames(data))){
+    if (!any(c("Taxa", "Length") %in% names(data))){
         stop("Input data must have Taxa and Length column names")
     }
     if (!("Source" %in% names(data))){
@@ -33,21 +34,33 @@ convert_lengths <- function(data){
         data_prep <- dplyr::left_join(data, surv)
     } else data_prep <- data
     
-    length_conv <- open_length_conv() 
+    sources<-data_prep%>%
+        dplyr::distinct(.data$Source)%>%
+        dplyr::collect()%>%
+        dplyr::pull(.data$Source)
     
-    l <- length_conv %>% 
-        dplyr::collect()
-    sp <- unique(l$Taxa)
+    if (!("Suisun" %in% sources)){
+        warning("No Suisun data found in input data. This function only operates on Suisun data.")
+        return(data)
+    }
+    
+    
+    l <- open_length_conv()
+    
+    sp <- l%>%
+        dplyr::distinct(.data$Species)%>%
+        dplyr::collect()%>%
+        dplyr::pull(.data$Species)
     
     data_f <- data_prep %>%
-        dplyr::left_join(length_conv) %>%
-        dplyr::mutate(Length = ifelse(.data$Source=="Suisun" & .data$Taxa %in% sp,
+        dplyr::left_join(l, by = c("Taxa" = "Species")) %>%
+        dplyr::mutate(Length = ifelse(.data$Source == "Suisun" & .data$Taxa %in% sp,
                                             .data$Intercept + .data$Slope * .data$Length,
                                             .data$Length)) %>%
         dplyr::select(-.data$Intercept, -.data$Slope)
     
     # if source wasn't in input data drop it
-    if (!("Source" %in% colnames(data))){
+    if (!("Source" %in% names(data))){
         data_f <- data_f %>%
             dplyr::select(-.data$Source)
     }

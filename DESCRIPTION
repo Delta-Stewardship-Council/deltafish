@@ -1,6 +1,6 @@
 Package: deltafish
 Title: Accesses an Integrated Fish Count and Length Dataset from the San Francisco Delta
-Version: 0.0.999
+Version: 0.1.0
 Authors@R: 
     c(person(given = "Jeanette",
            family = "Clark",
@@ -19,16 +19,16 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 DataVersion: 0.1.0
 Depends:
-    arrow (>= 7.0.0)
-Imports: 
-    dbplyr,
+    arrow (>= 8.0.0),
     dplyr,
+    dbplyr
+Imports: 
     magrittr,
     rappdirs,
-    rlang,
-    utils,
-    tidyr
-Suggests: 
     readr,
+    rlang,
+    utils
+Suggests: 
+    tidyr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

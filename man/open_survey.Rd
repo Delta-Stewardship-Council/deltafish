@@ -2,13 +2,13 @@
 % Please edit documentation in R/open.R
 \name{open_survey}
 \alias{open_survey}
-\title{Open survey data}
+\title{Connect survey data}
 \usage{
 open_survey()
 }
 \value{
-survey An arrow object that can be treated like a data.frame, with survey data
+An arrow object that can be treated like a data.frame, with survey data
 }
 \description{
-Open the survey data stored in the package
+Connect to the survey data stored in the package
 }
