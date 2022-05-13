@@ -2,26 +2,24 @@ surv <- open_survey()
 fish <- open_fish()
 length_conv <- open_length_conv()
 
+df_removed_nu <- dplyr::inner_join(fish, surv) %>%
+    remove_unknown_lengths(univariate = FALSE) %>% 
+    summarise(N=n(), Length_NA=sum(as.integer(is.na(Length) & Count!=0), na.rm=T))%>%
+    collect()
+
+df_removed_u <- dplyr::inner_join(fish, surv) %>%
+    remove_unknown_lengths(univariate = TRUE)  %>% 
+    summarise(N=n(), Length_NA=sum(as.integer(is.na(Length) & Count!=0), na.rm=T))%>% 
+    collect()
+
+df_full <- dplyr::inner_join(fish, surv)  %>% 
+    summarise(N=n(), Length_NA=sum(as.integer(is.na(Length) & Count!=0), na.rm=T))%>% 
+    collect()
+
 test_that("remove_unknown_lengths removes rows as expected", {
     
-    surv_s <- surv %>% 
-        dplyr::select(Source, SampleID) %>% 
-        dplyr::group_by(Source) %>% 
-        dplyr::slice_min(SampleId, n = 5)
-    
-    df_removed_nu <- dplyr::inner_join(fish, surv_s) %>%
-        remove_unknown_lengths(univariate = FALSE) %>% 
-        collect()
-    
-    df_removed_u <- dplyr::inner_join(fish, surv_s) %>%
-        remove_unknown_lengths(univariate = TRUE) %>% 
-        collect()
-    
-    df_full <- dplyr::inner_join(fish, surv_s) %>% 
-        collect()
-    
-    expect_true(nrow(df_full) > nrow(df_removed_u) & nrow(df_removed_u) > nrow(df_removed_nu))
-    expect_true(length(which(is.na(df_removed_nu$Length))) == 0 & length(which(is.na(df_removed_u$Length))) == 0)
+    expect_true(df_full$N > df_removed_u$N & df_removed_u$N > df_removed_nu$N)
+    expect_true(df_removed_nu$Length_NA == 0 & df_removed_u$Length_NA == 0)
 
 })
 
