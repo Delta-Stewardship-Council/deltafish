@@ -59,7 +59,7 @@ clear_cache <- function(){
 #' @export
 #'
 skip_os_CI<-function(os){
-    if (isFALSE(as.logical(Sys.getenv("CI"))) | tolower(Sys.info()[["sysname"]])%in%os) {
+    if (!isTRUE(as.logical(Sys.getenv("CI"))) | tolower(Sys.info()[["sysname"]])%in%os) {
         return(invisible(TRUE))
     }
     
