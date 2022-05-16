@@ -30,5 +30,7 @@ Imports:
     utils
 Suggests: 
     tidyr,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr,
+    mockery
 Config/testthat/edition: 3

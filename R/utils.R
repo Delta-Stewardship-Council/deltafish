@@ -50,3 +50,19 @@ clear_cache <- function(){
     clear_cache_f(cache_dir = "deltafish")
 }
 
+#' Skip tests helper
+#'
+#' This function skips tests not using the given operating system and on a CI platform
+#'
+#'
+#' @return (NULL) 
+#' @export
+#'
+skip_os_CI<-function(os){
+    if (isFALSE(as.logical(Sys.getenv("CI"))) | tolower(Sys.info()[["sysname"]])%in%os) {
+        return(invisible(TRUE))
+    }
+    
+    msg<-paste("Test skipped, when using CI, only run on", os)
+    testthat::skip(msg)
+}
