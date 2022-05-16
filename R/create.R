@@ -32,7 +32,7 @@ create_fish_db_f <- function(data_dir, cache_dir){
     if (is.null(data_dir)){ 
         #TODO: set up version checking for these URIs
         
-        binary_loc <- "https://portal.edirepository.org/nis/dataviewer?packageid=edi.1075.1&entityid=926f4aa8484f185b69bc1827fa67d40c"
+        binary_loc <- "https://pasta.lternet.edu/package/data/eml/edi/1075/1/926f4aa8484f185b69bc1827fa67d40c"
         
         # fish
         message("Downloading and writing fish data (~5 GB)")
@@ -43,7 +43,7 @@ create_fish_db_f <- function(data_dir, cache_dir){
         load(fish_dest)
         
         
-        length_loc <- "https://portal.edirepository.org/nis/dataviewer?packageid=edi.1075.1&entityid=2933237df1902243b4307f082bdc7d18"
+        length_loc <- "https://pasta.lternet.edu/package/data/eml/edi/1075/1/2933237df1902243b4307f082bdc7d18"
         # download
         utils::download.file(length_loc, mode="wb", method="curl", destfile=file.path(tempdir(), "Length_conversions.csv"))
         # read
