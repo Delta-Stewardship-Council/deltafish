@@ -12,7 +12,6 @@ df_removed_nu <- fish  %>%
 gc()
 
 df_removed_u <- fish%>%
-    compute() %>%
     remove_unknown_lengths(univariate = TRUE)  %>% 
     select(Length, Count)%>%
     compute()%>%
