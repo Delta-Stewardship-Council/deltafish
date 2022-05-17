@@ -53,16 +53,46 @@ clear_cache <- function(){
 #' Skip tests helper
 #'
 #' This function skips tests not using the given operating system and on a CI platform
+#' 
+#' @noRd
 #'
+
+check_os_ci<-function(){
+    ci<-isTRUE(as.logical(Sys.getenv("CI")))
+    
+    os<-tolower(Sys.info()[["sysname"]])
+    
+    out<-list(ci=ci, os=os)
+    
+    return(out)
+}
+
+#' Skip tests helper
 #'
-#' @return (NULL) 
-#' @export
+#' This function skips tests not using the given operating system and on a CI platform
+#' 
+#' @noRd
 #'
-skip_os_CI<-function(os){
-    if (!isTRUE(as.logical(Sys.getenv("CI"))) | tolower(Sys.info()[["sysname"]])%in%os) {
-        return(invisible(TRUE))
+skip_os_ci<-function(os, check_ci=TRUE){
+    if(!os%in%c("windows", "darwin", "linux")){
+        stop("os can only include 'windows', 'darwin', or 'linux'.")
     }
     
-    msg<-paste("Test skipped, when using CI, only run on", os)
+    os_ci<-check_os_ci()
+    
+    if(!os_ci$os%in%c("windows", "darwin", "linux")){
+        stop("This function is only designed to work on 'windows', 'darwin', or 'linux' operating systems.")
+    }
+    
+    if(os_ci$os%in%os){ # If we are running the chosen os, don't skip
+        return(invisible(TRUE))
+    }else{
+        if(check_ci & !os_ci$ci){ # If we want to check ci and we're not on ci, don't skip
+            return(invisible(TRUE))
+        }
+    }
+    
+    # Otherwise (not running chosen os and either A) not checking ci or B) checking ci and on ci) skip
+    msg<-paste0("Test skipped, ", ifelse(check_ci, "when using CI, ", ""), "only run on ", os)
     testthat::skip(msg)
 }
