@@ -1,3 +1,6 @@
+# Skip these test if on CI, and not using mac
+skip_os_CI("darwin")
+
 surv <- open_survey()
 fish <- open_fish()
 length_conv <- open_length_conv()

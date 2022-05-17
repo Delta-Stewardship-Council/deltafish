@@ -19,11 +19,10 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 DataVersion: 0.1.0
 Depends:
-    arrow (>= 6.0.1),
+    arrow (>= 8.0.0),
     dplyr,
     dbplyr
 Imports: 
-    duckdb,
     magrittr,
     rappdirs,
     readr,
@@ -31,5 +30,7 @@ Imports:
     utils
 Suggests: 
     tidyr,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr,
+    mockery
 Config/testthat/edition: 3
