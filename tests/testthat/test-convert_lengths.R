@@ -2,7 +2,7 @@ library(dplyr)
 library(deltafish)
 
 # Skip these test if on CI, and not using mac
-skip_os_CI("darwin")
+skip_os_ci("darwin")
 
 # lengths are converted correctly
 
