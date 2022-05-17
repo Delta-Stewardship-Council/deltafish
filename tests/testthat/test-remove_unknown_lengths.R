@@ -1,4 +1,13 @@
-fish <- open_fish()
+sys<-check_os_ci()
+
+if(sys$os=="windows" & sys$ci){
+    fish <- open_fish()%>%
+        filter(Taxa%in%c("Morone saxatilis", "Oncorhynchus tshawytscha", "Dorosoma petenense", "Alosa sapidissima", "Spirinchus thaleichthys"))
+    
+}else{
+    fish <- open_fish()
+    
+}
 
 df_removed_nu <- fish  %>%
     select(SampleID, Taxa, Count, Length)%>%
