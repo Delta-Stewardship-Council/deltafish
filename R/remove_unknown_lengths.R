@@ -22,8 +22,8 @@
 
 remove_unknown_lengths <- function(data, univariate){
     
-    if (!any(c("Length") %in% names(data))){
-        stop("Input data must have Length column name")
+    if (!any(c("Length", "Count", "SampleID", "Taxa") %in% names(data))){
+        stop("Input data must have 'Length', 'Count', 'SampleID', and 'Taxa' column names")
     }
     
     if (!univariate){
