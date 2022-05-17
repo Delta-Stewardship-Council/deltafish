@@ -1,8 +1,8 @@
-fish <- open_fish()%>%
-    select(SampleID, Taxa, Count, Length)%>%
-    compute()
+fish <- open_fish()
 
 df_removed_nu <- fish  %>%
+    select(SampleID, Taxa, Count, Length)%>%
+    compute()%>%
     remove_unknown_lengths(univariate = FALSE) %>%  
     select(Length, Count)%>%
     compute()%>%
@@ -12,6 +12,8 @@ df_removed_nu <- fish  %>%
 gc()
 
 df_removed_u <- fish%>%
+    select(SampleID, Taxa, Count, Length)%>%
+    compute()%>%
     remove_unknown_lengths(univariate = TRUE)  %>% 
     select(Length, Count)%>%
     compute()%>%
