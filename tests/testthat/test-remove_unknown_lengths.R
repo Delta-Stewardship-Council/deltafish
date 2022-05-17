@@ -1,11 +1,8 @@
-
-
-surv <- open_survey()
-fish <- open_fish()
-
-df_removed_nu <- dplyr::inner_join(fish, surv) %>%
+fish <- open_fish()%>%
     select(SampleID, Taxa, Count, Length)%>%
-    compute() %>%
+    compute()
+
+df_removed_nu <- fish  %>%
     remove_unknown_lengths(univariate = FALSE) %>%  
     select(Length, Count)%>%
     compute()%>%
@@ -14,8 +11,7 @@ df_removed_nu <- dplyr::inner_join(fish, surv) %>%
 
 gc()
 
-df_removed_u <- dplyr::inner_join(fish, surv)%>%
-    select(SampleID, Taxa, Count, Length)%>%
+df_removed_u <- fish%>%
     compute() %>%
     remove_unknown_lengths(univariate = TRUE)  %>% 
     select(Length, Count)%>%
@@ -25,7 +21,7 @@ df_removed_u <- dplyr::inner_join(fish, surv)%>%
 
 gc()
 
-df_full <- dplyr::inner_join(fish, surv)  %>% 
+df_full <- fish  %>% 
     select(Length, Count)%>%
     compute()%>%
     summarise(N=n(), Length_NA=sum(as.integer(is.na(Length) & Count!=0), na.rm=T))%>% 
