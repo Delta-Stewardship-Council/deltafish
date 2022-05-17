@@ -2,7 +2,8 @@ sys<-check_os_ci()
 
 if(sys$os=="windows" & sys$ci){
     fish <- open_fish()%>%
-        filter(Taxa%in%c("Morone saxatilis", "Oncorhynchus tshawytscha", "Dorosoma petenense", "Alosa sapidissima", "Spirinchus thaleichthys"))
+        filter(Taxa%in%c("Morone saxatilis", "Oncorhynchus tshawytscha", "Dorosoma petenense", "Alosa sapidissima", "Spirinchus thaleichthys") &
+                   !is.na(Count))
     
 }else{
     fish <- open_fish()
