@@ -31,5 +31,6 @@ Imports:
 Suggests: 
     tidyr,
     testthat (>= 3.0.0),
-    mockery
+    mockery,
+    covr
 Config/testthat/edition: 3
