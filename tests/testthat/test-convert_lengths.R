@@ -1,9 +1,6 @@
 library(dplyr)
 library(deltafish)
 
-# Skip these test if on CI, and not using mac
-skip_os_ci("darwin")
-
 # lengths are converted correctly
 
 surv <- open_survey()
@@ -20,11 +17,14 @@ df_unconverted_s <- fish%>%
     dplyr::inner_join(surv%>%
                           filter(Source=="Suisun")) 
 
-df_converted_compare_s<-df_unconverted_s%>% 
+df_converted_compare_s<-df_unconverted_s%>%
+    select(Taxa, Length, Source, Row)%>%
+    compute()%>% 
     dplyr::left_join(length_conv, by=c("Taxa"="Species"))%>%
     dplyr::mutate(Length_un=ifelse(is.na(Slope), Length, Length*Slope+Intercept))%>%
     dplyr::left_join(df_converted_s%>% 
-                         dplyr::select(Row, Length_con=Length), 
+                         dplyr::select(Row, Length_con=Length)%>%
+                         compute(), 
                      by=c("Row"))%>%
     dplyr::select(Length_con, Length_un)%>%
     mutate(missmatch=Length_con - Length_un)%>%
@@ -41,10 +41,14 @@ test_that("lengths are converted correctly", {
 # Converting lengths does not change the number of rows or columns or the total catch
 
 df_converted_col<-df_converted_s%>%
+    select(Count)%>%
+    compute()%>%
     dplyr::summarise(N=n(), Count_sum=sum(Count, na.rm=T))%>%
     collect()
 
 df_unconverted_col<-df_unconverted_s%>% 
+    select(Count)%>%
+    compute()%>%
     dplyr::summarise(N=n(), Count_sum=sum(Count, na.rm=T))%>%
     collect()
 
@@ -58,6 +62,7 @@ test_that("Converting lengths does not change the number of rows or columns or t
 
 df_less_0 <- df_converted_s %>% 
     dplyr::filter(Length <= 0)%>%
+    select(Count)%>%
     collect()
 
 test_that("Converting lengths does not induce lengths <= 0", {
@@ -69,8 +74,11 @@ test_that("Converting lengths does not induce lengths <= 0", {
 # Converting lengths does not affect non-Suisun data
 
 df_converted_compare <- fish%>%
+    select(SampleID, Taxa, Length)%>%
     mutate(Length_o=Length)%>%
-    dplyr::inner_join(surv) %>%
+    dplyr::inner_join(surv%>%
+                          select(Source, SampleID)%>%
+                          compute()) %>%
     convert_lengths()%>%
     filter(Source!="Suisun")%>% 
     dplyr::select(Length_con=Length, Length=Length_o)%>%
