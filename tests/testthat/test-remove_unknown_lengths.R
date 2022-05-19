@@ -16,7 +16,9 @@ df_removed_nu <- fish  %>%
     remove_unknown_lengths(univariate = FALSE) %>%  
     select(Length, Count)%>%
     compute()%>%
-    summarise(N=n(), Length_NA=sum(as.integer(is.na(Length) & Count!=0), na.rm=T))%>%
+    summarise(N=n(), 
+              Length_NA=sum(as.integer(is.na(Length) & Count!=0), na.rm=T),
+              N_0=sum(as.integer(Count==0)))%>%
     collect()
 
 gc()
@@ -27,7 +29,9 @@ df_removed_u <- fish%>%
     remove_unknown_lengths(univariate = TRUE)  %>% 
     select(Length, Count)%>%
     compute()%>%
-    summarise(N=n(), Length_NA=sum(as.integer(is.na(Length) & Count!=0), na.rm=T))%>% 
+    summarise(N=n(), 
+              Length_NA=sum(as.integer(is.na(Length) & Count!=0), na.rm=T),
+              N_0=sum(as.integer(Count==0)))%>% 
     collect()
 
 gc()
@@ -35,16 +39,27 @@ gc()
 df_full <- fish  %>% 
     select(Length, Count)%>%
     compute()%>%
-    summarise(N=n(), Length_NA=sum(as.integer(is.na(Length) & Count!=0), na.rm=T))%>% 
+    summarise(N=n(), 
+              Length_NA=sum(as.integer(is.na(Length) & Count!=0), na.rm=T),
+              N_0=sum(as.integer(Count==0)))%>% 
     collect()
 
 gc()
 
 test_that("remove_unknown_lengths removes rows as expected", {
     
-    expect_true(all(df_full$N > df_removed_u$N & df_removed_u$N > df_removed_nu$N))
-    expect_true(all(df_removed_nu$Length_NA == 0 & df_removed_u$Length_NA == 0))
+    expect_true(df_full$N > df_removed_u$N & df_removed_u$N > df_removed_nu$N)
+    expect_true(df_removed_nu$Length_NA == 0 & df_removed_u$Length_NA == 0)
 
+})
+
+test_that("Zero counts are retained by remove_unknown_lengths", {
+    
+    expect_gt(df_removed_nu$N_0, 0)
+    expect_gt(df_removed_u$N_0, 0)
+    expect_gt(df_full$N_0, 0)
+    expect_true(df_full$N_0 == df_removed_u$N_0 & df_removed_u$N_0 > df_removed_nu$N_0)
+    
 })
 
 rm(list = ls())
