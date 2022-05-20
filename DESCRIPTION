@@ -27,7 +27,10 @@ Imports:
     rappdirs,
     readr,
     rlang,
+    stringr,
     utils
+Remotes: 
+    ropensci/EDIutils
 Suggests: 
     tidyr,
     testthat (>= 3.0.0),
