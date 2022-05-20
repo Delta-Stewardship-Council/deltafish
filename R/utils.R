@@ -145,3 +145,30 @@ get_latest_EDI_revision <- function(){
     
     return(paste0("edi.1075.", as.character(t_final)))
 }
+
+#' Is cached data up to date with latest EDI data
+#'
+#' Returns TRUE for up to date, FALSE if a newer version exists
+#'
+#' @param cache_dir (char) The cache directory, by default set to deltafish for most use cases.
+#' @return (logical) Whether cache is up to date
+#' @export
+#'
+is_cache_updated <- function(cache_dir = "deltafish") {
+    rev <- scan(file.path(rappdirs::user_cache_dir(cache_dir), "revision.txt"),
+                what = "char",
+                quiet = TRUE)
+    
+    t <- EDIutils::list_data_package_revisions("edi", "1075")
+    edi_rev <- t[length(t)]
+    
+    cache_rev <- stringr::str_extract(rev, "[0-9]{1,2}$")
+    
+    if (edi_rev > cache_rev){
+        return(FALSE)
+    } else if (edi_rev <= cache_rev){
+        return(TRUE)
+    }
+    
+}
+
