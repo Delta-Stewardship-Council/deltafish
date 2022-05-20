@@ -2,7 +2,7 @@
 #'
 #' This function returns the EDI revision number of the cached data.
 #'
-#' @param (char) The cache directory, by default set to deltafish for most use cases.
+#' @param cache_dir (char) The cache directory, by default set to deltafish for most use cases.
 #' @return (char) The revision number in the cache
 #' @export
 #'

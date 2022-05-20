@@ -23,6 +23,7 @@ Depends:
     dplyr,
     dbplyr
 Imports: 
+    EDIutils,
     magrittr,
     rappdirs,
     readr,

@@ -7,7 +7,7 @@
 show_cached_revision(cache_dir = "deltafish")
 }
 \arguments{
-\item{(char)}{The cache directory, by default set to deltafish for most use cases.}
+\item{cache_dir}{(char) The cache directory, by default set to deltafish for most use cases.}
 }
 \value{
 (char) The revision number in the cache
