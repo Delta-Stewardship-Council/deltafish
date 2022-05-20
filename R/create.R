@@ -5,11 +5,14 @@
 #' 
 #' @param data_dir Directory to read data from
 #' @param cache_dir Directory to cache data into
+#' @param edi_pid Identifier of dataset to use from EDI
+#' @param update
+#' 
 #' @import arrow
 #' @return NULL
 #' @noRd
 
-create_fish_db_f <- function(data_dir, cache_dir, edi_pid){
+create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update){
     
     # set timeout to something high
     timeout <- getOption('timeout')
@@ -18,14 +21,23 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid){
     #Fixing R CMD check issue with global variable binding:
     res_fish <- NULL
     
+    up_to_date <- is_cache_updated()
+    
+    # if the dataset is up to date, but user wants to update, 
+    # print a message and set update to FALSE
+    if (up_to_date & update){
+        update <- FALSE
+        message("Dataset already up to date")
+    }
     
     # set up cache
     if (!(dir.exists(rappdirs::user_cache_dir(cache_dir)))){
         dir.create(rappdirs::user_cache_dir(cache_dir), recursive = TRUE)
     } else if (dir.exists(rappdirs::user_cache_dir(cache_dir)) &
-               length(dir(rappdirs::user_cache_dir(cache_dir), recursive = TRUE)) > 0){
+               length(dir(rappdirs::user_cache_dir(cache_dir), recursive = TRUE)) > 0 &
+               !update){
         rev <- show_cached_revision(cache_dir)
-        message(paste("Fish db already exists in cache directory, revision", rev))
+        message(paste("Reading data from cache directory, revision", rev))
         return(rappdirs::user_cache_dir(cache_dir))
     }
 
@@ -129,21 +141,22 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid){
 #' Function to create the arrow dataset. Reads in raw data from the
 #' published [EDI dataset](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075&revision=1).
 #' 
-#' @param edi_pid Optionally, a way to specify a specific revision of the dataset, in the format "edi.1075.1"
+#' @param edi_pid (char) Optionally, a way to specify a specific revision of the dataset, in the format "edi.1075.1"
 #' Leave parameter unset to get the latest revision.
+#' @param update (logical) If set to TRUE, will update to latest version from EDI if a newer version is available
 #' 
 #' @import arrow
 #' @return NULL
 #' @export
 #'
 
-create_fish_db <- function(edi_pid = NULL){
+create_fish_db <- function(edi_pid = NULL, update = FALSE){
     
     if (is.null(edi_pid)){
         edi_pid <- get_latest_EDI_revision()
     }
     
-    create_fish_db_f(data_dir = NULL, cache_dir = "deltafish", edi_pid = edi_pid) 
+    create_fish_db_f(data_dir = NULL, cache_dir = "deltafish", edi_pid = edi_pid, update = update) 
     
 }
 
