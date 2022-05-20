@@ -9,7 +9,7 @@
 #' @return NULL
 #' @noRd
 
-create_fish_db_f <- function(data_dir, cache_dir){
+create_fish_db_f <- function(data_dir, cache_dir, edi_pid){
     
     # set timeout to something high
     timeout <- getOption('timeout')
@@ -24,15 +24,22 @@ create_fish_db_f <- function(data_dir, cache_dir){
         dir.create(rappdirs::user_cache_dir(cache_dir), recursive = TRUE)
     } else if (dir.exists(rappdirs::user_cache_dir(cache_dir)) &
                length(dir(rappdirs::user_cache_dir(cache_dir), recursive = TRUE)) > 0){
-        message("Fish db already exists in cache directory")
+        rev <- show_cached_revision(cache_dir)
+        message(paste("Fish db already exists in cache directory, revision", rev))
         return(rappdirs::user_cache_dir(cache_dir))
     }
+
+    
+    edi_entity_pids <- get_edi_pids(edi_pid)
+    revision <- stringr::str_extract(edi_pid, "[0-9]{1,2}$")
+
+    message(paste("Getting data from EDI identifier", edi_pid))
     
     # download dataif no data_dir is set
     if (is.null(data_dir)){ 
         #TODO: set up version checking for these URIs
         
-        binary_loc <- "https://pasta.lternet.edu/package/data/eml/edi/1075/1/926f4aa8484f185b69bc1827fa67d40c"
+        binary_loc <- paste0("https://pasta.lternet.edu/package/data/eml/edi/1075/", revision, "/", edi_entity_pids$compressed)
         
         # fish
         message("Downloading and writing fish data (~5 GB)")
@@ -43,7 +50,7 @@ create_fish_db_f <- function(data_dir, cache_dir){
         load(fish_dest)
         
         
-        length_loc <- "https://pasta.lternet.edu/package/data/eml/edi/1075/1/2933237df1902243b4307f082bdc7d18"
+        length_loc <-  paste0("https://pasta.lternet.edu/package/data/eml/edi/1075/", revision, "/", edi_entity_pids$length)
         # download
         utils::download.file(length_loc, mode="wb", method="curl", destfile=file.path(tempdir(), "Length_conversions.csv"))
         # read
@@ -103,6 +110,8 @@ create_fish_db_f <- function(data_dir, cache_dir){
     # write
     arrow::write_dataset(lconv, file.path(rappdirs::user_cache_dir(cache_dir), "length_conversion"))
     
+    writeLines(edi_pid, file.path(rappdirs::user_cache_dir(cache_dir), "revision.txt"))
+    
     # reset timeout
     options(timeout = timeout)
     gc()
@@ -120,14 +129,21 @@ create_fish_db_f <- function(data_dir, cache_dir){
 #' Function to create the arrow dataset. Reads in raw data from the
 #' published [EDI dataset](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075&revision=1).
 #' 
+#' @param edi_pid Optionally, a way to specify a specific revision of the dataset, in the format "edi.1075.1"
+#' Leave parameter unset to get the latest revision.
+#' 
 #' @import arrow
 #' @return NULL
 #' @export
 #'
 
-create_fish_db <- function(){
+create_fish_db <- function(edi_pid = NULL){
     
-    create_fish_db_f(data_dir = NULL, cache_dir = "deltafish") 
+    if (is.null(edi_pid)){
+        edi_pid <- get_latest_EDI_revision()
+    }
+    
+    create_fish_db_f(data_dir = NULL, cache_dir = "deltafish", edi_pid = edi_pid) 
     
 }
 
