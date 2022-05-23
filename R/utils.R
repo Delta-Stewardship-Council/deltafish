@@ -155,6 +155,12 @@ get_latest_EDI_revision <- function(){
 #' @export
 #'
 is_cache_updated <- function(cache_dir = "deltafish") {
+    
+    # if revision file doesn't exist, return FALSE triggering an update
+    if (!file.exists(file.path(rappdirs::user_cache_dir(cache_dir), "revision.txt"))){
+        return(FALSE)
+    }
+    
     rev <- scan(file.path(rappdirs::user_cache_dir(cache_dir), "revision.txt"),
                 what = "char",
                 quiet = TRUE)
