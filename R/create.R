@@ -85,15 +85,12 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update){
     rm(res_fish)
     gc()
     
-    res_survey$Date <- as.character(res_survey$Date)
-    res_survey$Datetime <- as.character(res_survey$Datetime)
-    
     s <- arrow::schema(Source = arrow::string(),
                        Station = arrow::string(),
                        Latitude = arrow::float(),     
                        Longitude = arrow::float(),
-                       Date = arrow::string(),
-                       Datetime = arrow::string(),
+                       Date = arrow::date64(),
+                       Datetime = arrow::timestamp(),
                        Survey  = arrow::int64(),
                        Depth  = arrow::float(),
                        SampleID  = arrow::string(),
