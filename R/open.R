@@ -12,10 +12,6 @@ open_survey_f <- function(cache_dir){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
     
-    if (!requireNamespace("dplyr", quietly = TRUE)) {
-        stop("please install dplyr first")
-    }
-    
     survey <- arrow::open_dataset(file.path(rappdirs::user_cache_dir(cache_dir), "survey"))
     
     return(survey)
@@ -33,11 +29,6 @@ open_fish_f <- function(cache_dir){
     if (!(dir.exists(rappdirs::user_cache_dir(cache_dir)))){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
-    
-    if (!requireNamespace("dplyr", quietly = TRUE)) {
-        stop("please install dplyr first")
-    }
-    
     fish  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir(cache_dir), "fish"))
     
     return(fish)
@@ -54,10 +45,6 @@ open_fish_f <- function(cache_dir){
 open_length_conv_f <- function(cache_dir){
     if (!(dir.exists(rappdirs::user_cache_dir(cache_dir)))){
         stop("Cache directory does not exist. Try running `create_fish_db().")
-    }
-    
-    if (!requireNamespace("dplyr", quietly = TRUE)) {
-        stop("please install dplyr first")
     }
     
     lconv  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir(cache_dir), "length_conversion"))
