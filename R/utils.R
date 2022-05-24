@@ -22,7 +22,9 @@ show_cached_revision <- function(cache_dir = "deltafish") {
 #' @return (list) A list of files
 #' @export
 #'
-show_cache <- function() dir(rappdirs::user_cache_dir("deltafish"), full.names = TRUE)
+show_cache <- function() {
+    dir(rappdirs::user_cache_dir("deltafish"), full.names = TRUE, recursive = TRUE)
+}
 
 
 #' Clear cached deltafish files (internal)
