@@ -17,3 +17,9 @@ test_that("open_length_conv opens the survey data, and it contains expected vari
     expect_true("FileSystemDataset" %in% class(length_conv))
     expect_true(all(c("Species", "Intercept", "Slope") %in% names(length_conv)))
 })
+
+test_that("opening from a cache that doesn't exist returns an error", {
+    expect_error(deltafish:::open_survey_f("foo"))
+    expect_error(deltafish:::open_fish_f("foo"))
+    expect_error(deltafish:::open_length_conv_f("foo"))
+})
