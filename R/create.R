@@ -20,6 +20,7 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update){
     
     #Fixing R CMD check issue with global variable binding:
     res_fish <- NULL
+    res_survey <- NULL
     
     up_to_date <- is_cache_updated()
     
@@ -85,12 +86,14 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update){
     rm(res_fish)
     gc()
     
+    timezone<-attr(res_survey$Datetime, "tzone")
+    
     s <- arrow::schema(Source = arrow::string(),
                        Station = arrow::string(),
                        Latitude = arrow::float(),     
                        Longitude = arrow::float(),
                        Date = arrow::date64(),
-                       Datetime = arrow::timestamp(),
+                       Datetime = arrow::timestamp(timezone=timezone),
                        Survey  = arrow::int64(),
                        Depth  = arrow::float(),
                        SampleID  = arrow::string(),

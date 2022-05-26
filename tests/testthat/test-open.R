@@ -1,4 +1,3 @@
-create_fish_db()
 surv <- open_survey()
 fish <- open_fish()
 length_conv <- open_length_conv()
