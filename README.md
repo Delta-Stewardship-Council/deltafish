@@ -8,7 +8,7 @@
 [![Codecov test coverage](https://codecov.io/gh/Delta-Stewardship-Council/deltafish/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Delta-Stewardship-Council/deltafish?branch=main)
 <!-- badges: end -->
 
-The goal of `deltafish` is to provide easy access to the [integrated San Fransisco estuary Delta fish dataset](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075&revision=1). This dataset is published, citeable, and documented on [EDI](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075&revision=1). The dataset contains around 70 million rows, which are not easily queryable with normal R techniques. `deltafish` utilizes the R implementation of [Apache Arrow](https://arrow.apache.org/docs/r/) and the [parquet](https://parquet.apache.org/documentation/latest/) data format, along with `dbplyr` to make the process of working with this large dataset much easier on a standard computer. 
+The goal of `deltafish` is to provide easy access to the [integrated San Fransisco estuary Delta fish dataset](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075&revision=1). This dataset is published, citeable, and documented on [EDI](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075&revision=1). The dataset contains around 45 million rows, which are not easily queryable with normal R techniques. `deltafish` utilizes the R implementation of [Apache Arrow](https://arrow.apache.org/docs/r/) and the [parquet](https://parquet.apache.org/documentation/latest/) data format, along with `dbplyr` to make the process of working with this large dataset much easier on a standard computer. 
 
 You can use `dplyr` verbs to query the arrow dataset in much the same way as you would a `data.frame`. Instead of computing your function return value every time you execute a `dplyr` function call, however, `arrow` builds a query on the backend which is only run when you `collect()` the data. This means you execute far fewer queries and are able to work with the data much more efficiently.
 
@@ -55,3 +55,24 @@ df <- left_join(surv_FMWT, fish_smelt) %>%
 
 ```
 
+## Data updating
+
+When the integrated dataset is updated, you do not need to update your installation of the `deltafish` package. Instead, you can access the latest data by re-building the cached database via 
+
+``` r
+library(deltafish)
+create_fish_db(update=TRUE)
+```
+
+Or, you can specify the exact version of the data package you wish to use. This enables reproducibility by ensuring the correct data package version is used. 
+
+``` r
+library(deltafish)
+create_fish_db(edi_pid="edi.1075.1")
+```
+
+To create a fully reproducible workflow, you should also note the `deltafish` package version used, which could always be installed later with e.g.,
+
+``` r
+devtools::install_github("Delta-Stewardship-Council/deltafish", ref="v0.2.0")
+```

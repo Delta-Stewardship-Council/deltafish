@@ -4,7 +4,10 @@
 \alias{open_fish}
 \title{Connect fish data}
 \usage{
-open_fish()
+open_fish(quiet = FALSE)
+}
+\arguments{
+\item{quiet}{silence message about fish length units.}
 }
 \value{
 An arrow object that can be treated like a data.frame, with fish data

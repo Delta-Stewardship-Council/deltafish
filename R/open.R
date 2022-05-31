@@ -20,17 +20,20 @@ open_survey_f <- function(cache_dir){
 #' Connect fish data (internal)
 #'
 #' @param cache_dir A cache directory name
+#' @param quiet silence message about fish length units.  
 #' @return fish An arrow object that can be treated like a data.frame, with fish data
 #' @importFrom magrittr %>%
 #' @importFrom dplyr tbl
 #' @noRd
 
-open_fish_f <- function(cache_dir){
+open_fish_f <- function(cache_dir, quiet=FALSE){
     if (!(dir.exists(rappdirs::user_cache_dir(cache_dir)))){
         stop("Cache directory does not exist. Try running `create_fish_db().")
     }
     fish  <- arrow::open_dataset(file.path(rappdirs::user_cache_dir(cache_dir), "fish"))
-    
+    if(!quiet){
+        message("Note: fish length units are not all compatible across surveys. The Suisun study uses standard length while the other surveys use fork/total length. Use deltafish::convert_lengths to convert the length units of the 20 taxa for which we have conversion equations from standard length to fork/total length. ")
+    }
     return(fish)
 }
 
@@ -56,13 +59,14 @@ open_length_conv_f <- function(cache_dir){
 #' Connect fish data
 #' 
 #' Connect to the fish data stored in the package
+#' @param quiet silence message about fish length units.  
 #'
 #' @return An arrow object that can be treated like a data.frame, with fish data
 #' @export
 
-open_fish <- function(){
+open_fish <- function(quiet=FALSE){
     
-    lconv <- open_fish_f(cache_dir = "deltafish")
+    lconv <- open_fish_f(cache_dir = "deltafish", quiet=quiet)
     
     return(lconv)
 }

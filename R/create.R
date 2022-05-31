@@ -55,7 +55,7 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update){
         binary_loc <- paste0("https://pasta.lternet.edu/package/data/eml/edi/1075/", revision, "/", edi_entity_pids$compressed)
         
         # fish
-        message("Downloading and writing fish data (~5 GB)")
+        message("Downloading and writing fish data (~18 MB)")
         # download
         fish_dest <- file.path(tempdir(), "fishsurvey_compressed.rda")
         t <- utils::download.file(binary_loc, mode="wb", method="curl", destfile = fish_dest)
