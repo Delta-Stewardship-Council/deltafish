@@ -1,0 +1,48 @@
+citHeader("To cite deltafish in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "deltafish: an R package to access an integrated dataset of fish counts and lengths from the San Francisco Estuary v0.1.0",
+  author   = c(person(given = "Jeanette",
+           family = "Clark",
+           role = c("aut"),
+           email = "jclark@nceas.ucsb.edu",
+           comment = c(ORCID = "https://orcid.org/0000-0003-4703-1974")),
+    person(given = "Samuel M",
+           family = "Bashevkin",
+           role = c("aut", "cre"),
+           email = "sam.bashevkin@deltacouncil.ca.gov",
+           comment = c(ORCID = "https://orcid.org/0000-0001-7406-7089"))),
+  journal  = "Zenodo",
+  year     = 2022,
+  url      = "https://zenodo.org/record/6484440",
+  doi      = "10.5281/zenodo.6484440",
+  textVersion = "Clark J, Bashevkin SM. 2022. deltafish: an R package to access an integrated dataset of fish counts and lengths from the San Francisco Estuary v0.1.0. Zenodo. doi:10.5281/zenodo.6484440"
+)
+
+citEntry(
+  entry    = "Article",
+  title    = "deltafish: an R package to access an integrated dataset of fish counts and lengths from the San Francisco Estuary v0.1.0",
+  author   = c(
+           person(given = "Samuel M",
+           family = "Bashevkin",
+           email = "sam.bashevkin@deltacouncil.ca.gov",
+           comment = c(ORCID = "https://orcid.org/0000-0001-7406-7089")),
+           person(given = "Jereme W",
+           family = "Gaeta",
+           comment = c(ORCID = "https://orcid.org/0000-0002-6925-6907")),
+           person(given = "Trinh X",
+           family = "Nguyen",
+           comment = c(ORCID = "https://orcid.org/0000-0001-9523-1466")),
+           person(given = "Lara",
+           family = "Mitchell",
+           comment = c(ORCID = "https://orcid.org/0000-0002-8439-8508")),
+           person(given = "Shruti",
+           family = "Khanna",
+           comment = c(ORCID = "https://orcid.org/0000-0003-1724-248X"))),
+  journal  = "Environmental Data Initiative",
+  year     = 2022,
+  url      = "https://doi.org/10.6073/pasta/0cdf7e5e954be1798ab9bf4f23816e83",
+  doi      = "10.6073/pasta/0cdf7e5e954be1798ab9bf4f23816e83",
+  textVersion = "Bashevkin SM, Gaeta JW, Nguyen TX, Mitchell L, Khanna S. 2022. Fish abundance in the San Francisco Estuary (1959-2021), an integration of 9 monitoring surveys. ver 1. Environmental Data Initiative. doi:10.6073/pasta/0cdf7e5e954be1798ab9bf4f23816e83."
+)

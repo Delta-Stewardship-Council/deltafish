@@ -5,3 +5,6 @@ data-raw/
 ^LICENSE\.md$
 ^\.github$
 ^codecov\.yml$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

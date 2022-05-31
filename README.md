@@ -55,7 +55,7 @@ df <- left_join(surv_FMWT, fish_smelt) %>%
 
 ```
 
-## Data updating
+## Data updating and versioning
 
 When the integrated dataset is updated, you do not need to update your installation of the `deltafish` package. Instead, you can access the latest data by re-building the cached database via 
 
