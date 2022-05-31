@@ -36,3 +36,4 @@ Suggests:
     mockery,
     covr
 Config/testthat/edition: 3
+URL: https://delta-stewardship-council.github.io/deltafish/
