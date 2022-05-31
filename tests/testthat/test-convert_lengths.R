@@ -104,5 +104,10 @@ test_that("Converting lengths does not affect non-Suisun data", {
     
 })
 
+test_that("convert_lengths fails when the required column names are not included", {
+    expect_error(convert_lengths(data.frame(Taxa="a", length=1)), "Input data must have Taxa and Length column names", fixed=TRUE)
+    
+})
+
 rm(list = ls())
 gc()

@@ -24,7 +24,7 @@
 #' 
 convert_lengths <- function(data){
     
-    if (!any(c("Taxa", "Length") %in% names(data))){
+    if (any(!c("Taxa", "Length") %in% names(data))){
         stop("Input data must have Taxa and Length column names")
     }
     if (!("Source" %in% names(data))){
