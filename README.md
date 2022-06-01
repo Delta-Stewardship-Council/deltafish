@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/Delta-Stewardship-Council/deltafish/workflows/R-CMD-check/badge.svg)](https://github.com/Delta-Stewardship-Council/deltafish/actions)
-  ![r-universe](https://r-lib.r-universe.dev/badges/deltafish)
+  ![r-universe](https://sbashevkin.r-universe.dev/badges/deltafish)
   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6484440.svg)](https://doi.org/10.5281/zenodo.6484440)
 [![Codecov test coverage](https://codecov.io/gh/Delta-Stewardship-Council/deltafish/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Delta-Stewardship-Council/deltafish?branch=main)
 <!-- badges: end -->
