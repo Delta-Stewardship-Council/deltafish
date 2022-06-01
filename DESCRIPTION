@@ -26,15 +26,12 @@ Imports:
     EDIutils,
     magrittr,
     rappdirs,
-    readr,
     rlang,
-    stringr,
     utils,
     dplyr
 Remotes: 
     ropensci/EDIutils
 Suggests: 
-    tidyr,
     testthat (>= 3.0.0),
     mockery,
     covr

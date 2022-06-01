@@ -44,7 +44,7 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update){
 
     
     edi_entity_pids <- get_edi_pids(edi_pid)
-    revision <- stringr::str_extract(edi_pid, "[0-9]{1,2}$")
+    revision <- strsplit(edi_pid, ".", fixed=T)[[1]][3]
 
     message(paste("Getting data from EDI identifier", edi_pid))
     
@@ -67,7 +67,7 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update){
         # download
         utils::download.file(length_loc, mode="wb", method="curl", destfile=file.path(tempdir(), "Length_conversions.csv"))
         # read
-        lconv <- readr::read_csv(file.path(tempdir(), "Length_conversions.csv"), progress = FALSE, show_col_types = FALSE)
+        lconv <- utils::read.csv(file.path(tempdir(), "Length_conversions.csv"))
         
     } else if (!is.null(data_dir)){
         
@@ -76,7 +76,7 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update){
         }
         
         load(file.path(data_dir, "fishsurvey_compressed.rda"))
-        lconv <- readr::read_csv(file.path(data_dir, "Length_conversions.csv"), progress = FALSE, show_col_types = FALSE)
+        lconv <- utils::read.csv(file.path(data_dir, "Length_conversions.csv"))
         
     }
     # write

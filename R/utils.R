@@ -83,7 +83,7 @@ is_cache_updated <- function(cache_dir = "deltafish") {
     t <- EDIutils::list_data_package_revisions("edi", "1075")
     edi_rev <- t[length(t)]
     
-    cache_rev <- stringr::str_extract(rev, "[0-9]{1,2}$")
+    cache_rev <- strsplit(rev, ".", fixed=T)[[1]][3]
     
     if (edi_rev > cache_rev){
         return(FALSE)
