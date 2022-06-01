@@ -69,7 +69,7 @@
 </h2>
 <p>First build the database. This takes a bit to run since the source data are large.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">deltafish</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://delta-stewardship-council.github.io/deltafish/">deltafish</a></span><span class="op">)</span>
 <span class="fu"><a href="reference/create_fish_db.html">create_fish_db</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Then open and query data.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -99,11 +99,11 @@
 </h2>
 <p>When the integrated dataset is updated, you do not need to update your installation of the <code>deltafish</code> package. Instead, you can access the latest data by re-building the cached database via</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">deltafish</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://delta-stewardship-council.github.io/deltafish/">deltafish</a></span><span class="op">)</span>
 <span class="fu"><a href="reference/create_fish_db.html">create_fish_db</a></span><span class="op">(</span>update<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Or, you can specify the exact version of the data package you wish to use. This enables reproducibility by ensuring the correct data package version is used.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">deltafish</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://delta-stewardship-council.github.io/deltafish/">deltafish</a></span><span class="op">)</span>
 <span class="fu"><a href="reference/create_fish_db.html">create_fish_db</a></span><span class="op">(</span>edi_pid<span class="op">=</span><span class="st">"edi.1075.1"</span><span class="op">)</span></code></pre></div>
 <p>To create a fully reproducible workflow, you should also note the <code>deltafish</code> package version used, which could always be installed later with e.g.,</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
