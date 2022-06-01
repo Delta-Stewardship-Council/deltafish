@@ -1,3 +1,4 @@
+cat("testing remove_unknown_lengths")
 sys<-check_os_ci()
 
 if(sys$os=="windows" & sys$ci){
@@ -64,3 +65,4 @@ test_that("Zero counts are retained by remove_unknown_lengths", {
 
 rm(list = ls())
 gc()
+cat("finished testing remove_unknown_lengths")

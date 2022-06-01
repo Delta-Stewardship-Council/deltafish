@@ -1,4 +1,4 @@
-
+cat("testing the outcome of create_fish_db")
 datetimes<-open_survey()%>%
     distinct(Date, Datetime)%>%
     collect()
@@ -12,3 +12,4 @@ test_that("Timezone is correct", {
     expect_equal(attr(datetimes$Datetime, "tzone"), "America/Los_Angeles")    
 })
 
+cat("finished testing the outcome of create_fish_db")

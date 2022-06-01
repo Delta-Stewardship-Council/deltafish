@@ -1,3 +1,4 @@
+cat("testing the open functions")
 surv <- open_survey()
 fish <- open_fish()
 length_conv <- open_length_conv()
@@ -22,3 +23,5 @@ test_that("opening from a cache that doesn't exist returns an error", {
     expect_error(deltafish:::open_fish_f("foo"))
     expect_error(deltafish:::open_length_conv_f("foo"))
 })
+
+cat("finished testing the open functions")

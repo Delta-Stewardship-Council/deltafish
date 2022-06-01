@@ -1,3 +1,5 @@
+cat("testing convert_lengths")
+
 library(dplyr)
 library(deltafish)
 
@@ -111,3 +113,4 @@ test_that("convert_lengths fails when the required column names are not included
 
 rm(list = ls())
 gc()
+cat("finished testing convert_lengths")

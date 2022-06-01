@@ -1,4 +1,4 @@
-
+cat("testing skip_os_ci")
 test_that("skip_os_ci runs without error on windows", {
     skip_os_ci("windows", ci="either")
     expect_condition(skip_os_ci("windows"), NA, class = "skip") 
@@ -72,3 +72,4 @@ test_that("skip_os_ci works", {
     expect_condition(skip_os_ci("darwin", logical="or", ci="ci"), NA, class = "skip")  # not skip
     
 })
+cat("finished testing skip_os_ci")

@@ -1,3 +1,4 @@
+cat("testing utility functions")
 test_that("cached directories can be shown", {
   files <- show_cache()
   
@@ -31,3 +32,4 @@ test_that("cleared cache induces the expected message in clear_cache()", {
     expect_message(clear_cache(), "No cache to remove.", fixed=TRUE)
     
 })
+cat("finished testing utility functions")

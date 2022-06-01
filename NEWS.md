@@ -11,3 +11,4 @@
 
 # deltafish 0.1.0
 
+* Initialize package and database from EDI data publication
