@@ -17,6 +17,9 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
+URL: https://delta-stewardship-council.github.io/deltafish/
+BugReports: https://github.com/delta-stewardship-council/deltafish/issues
+Language: en-US
 Depends:
     arrow (>= 8.0.0)
 Imports: 
@@ -36,4 +39,3 @@ Suggests:
     mockery,
     covr
 Config/testthat/edition: 3
-URL: https://delta-stewardship-council.github.io/deltafish/
