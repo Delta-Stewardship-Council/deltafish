@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/Delta-Stewardship-Council/deltafish/workflows/R-CMD-check/badge.svg)](https://github.com/Delta-Stewardship-Council/deltafish/actions)
-  
+  ![r-universe](https://r-lib.r-universe.dev/badges/deltafish)
   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6484440.svg)](https://doi.org/10.5281/zenodo.6484440)
 [![Codecov test coverage](https://codecov.io/gh/Delta-Stewardship-Council/deltafish/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Delta-Stewardship-Council/deltafish?branch=main)
 <!-- badges: end -->
@@ -16,8 +16,21 @@ To begin, install the package as below and run `create_fish_db()`. This will dow
 
 ## Installation
 
+You can install the package via github:
 ``` r
 devtools::install_github("Delta-Stewardship-Council/deltafish")
+```
+
+Or via r-universe:
+
+``` r
+# Enable this universe
+options(repos = c(
+    sbashevkin = 'https://sbashevkin.r-universe.dev',
+    CRAN = 'https://cloud.r-project.org'))
+
+# Install the package
+install.packages('deltafish')
 ```
 
 ## Example
