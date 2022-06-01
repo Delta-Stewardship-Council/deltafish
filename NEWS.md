@@ -1,3 +1,4 @@
+# deltafish 0.2.0
 
 * Add `pkgdown` website
 * Implement EDI data package version checking and specification withn `create_fish_db`
