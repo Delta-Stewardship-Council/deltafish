@@ -70,7 +70,6 @@ test_that("skip_os_ci works", {
     expect_condition(skip_os_ci("darwin", logical="and", ci="local"), class = "skip")  # skip
     expect_condition(skip_os_ci("darwin", logical="and", ci="ci"), class = "skip") # skip
     expect_condition(skip_os_ci("darwin", logical="or", ci="ci"), NA, class = "skip")  # not skip
-    stop("forcing failure")
     
 })
 cat("finished testing skip_os_ci")
