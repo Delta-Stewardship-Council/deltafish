@@ -1,8 +1,5 @@
 cat("testing convert_lengths")
 
-library(dplyr)
-library(deltafish)
-
 # lengths are converted correctly
 
 surv <- open_survey()

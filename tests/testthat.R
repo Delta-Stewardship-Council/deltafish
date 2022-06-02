@@ -1,8 +1,5 @@
 library(testthat)
 library(deltafish)
-
-cat("starting to create database")
-create_fish_db()
-cat("finished creating database")
+library(dplyr)
 
 test_check("deltafish")
