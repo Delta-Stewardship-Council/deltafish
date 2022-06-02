@@ -2,7 +2,7 @@ cat("testing utility functions")
 test_that("cached directories can be shown", {
   files <- show_cache()
   
-  expect_true(length(files) > 0)
+  expect_true(FALSE)
   expect_true(all(grepl("deltafish", files)))
 })
 
