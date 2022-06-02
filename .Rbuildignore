@@ -8,3 +8,4 @@ data-raw/
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^data-raw$

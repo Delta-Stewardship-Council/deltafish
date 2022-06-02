@@ -1,10 +1,10 @@
 
-# deltafish
+# deltafish <a href="https://delta-stewardship-council.github.io/deltafish/"><img src="man/figures/logo.png" align="right" height="139" /></a>
 
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/Delta-Stewardship-Council/deltafish/workflows/R-CMD-check/badge.svg)](https://github.com/Delta-Stewardship-Council/deltafish/actions)
   [![r-universe](https://sbashevkin.r-universe.dev/badges/deltafish)](https://sbashevkin.r-universe.dev/ui#package:deltafish)
-  [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6484440.svg)](https://doi.org/10.5281/zenodo.6484440)
+  [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6484439.svg)](https://doi.org/10.5281/zenodo.6484439)
   [![Data DOI](https://img.shields.io/badge/Data%20publication%20DOI-10.6073/pasta/0cdf7e5e954be1798ab9bf4f23816e83-blue.svg)](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075)
 [![Codecov test coverage](https://codecov.io/gh/Delta-Stewardship-Council/deltafish/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Delta-Stewardship-Council/deltafish?branch=main)
 <!-- badges: end -->
