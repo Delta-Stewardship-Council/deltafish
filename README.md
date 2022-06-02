@@ -1,6 +1,8 @@
 
 # deltafish <a href="https://delta-stewardship-council.github.io/deltafish/"><img src="man/figures/logo.png" align="right" height="139" /></a>
 
+Credit to [Brian Mahardja](https://github.com/bmahardja) for the Delta Smelt drawing in the logo. 
+
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/Delta-Stewardship-Council/deltafish/workflows/R-CMD-check/badge.svg)](https://github.com/Delta-Stewardship-Council/deltafish/actions)
   [![r-universe](https://sbashevkin.r-universe.dev/badges/deltafish)](https://sbashevkin.r-universe.dev/ui#package:deltafish)
