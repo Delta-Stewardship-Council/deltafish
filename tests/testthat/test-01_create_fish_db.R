@@ -1,3 +1,7 @@
+cat("starting to create database")
+create_fish_db()
+cat("finished creating database")
+
 cat("testing the outcome of create_fish_db")
 datetimes<-open_survey()%>%
     distinct(Date, Datetime)%>%
