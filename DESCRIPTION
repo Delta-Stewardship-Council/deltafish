@@ -29,8 +29,6 @@ Imports:
     rlang,
     utils,
     dplyr
-Remotes: 
-    ropensci/EDIutils
 Suggests: 
     testthat (>= 3.0.0),
     mockery,
