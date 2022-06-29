@@ -21,7 +21,8 @@ test_that("up-to-date dataset with update=TRUE produces expected message", {
 })
 
 test_that("bad data directory produces expected error", {
-    expect_error(create_fish_db_f(data_dir = tempdir(), cache_dir="test", update=F, edi_pid="edi.1075.1"), 
+    
+    expect_error(create_fish_db_f(data_dir = "test-dir", cache_dir="test", update=F, edi_pid="edi.1075.1"), 
                  regexp=NULL)
 })
 
