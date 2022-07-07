@@ -1,3 +1,5 @@
+* Adding `download_method` parameter to `create_fish_db` to help users download files given their specific limitations
+
 # deltafish 0.2.0
 
 * Add `pkgdown` website
