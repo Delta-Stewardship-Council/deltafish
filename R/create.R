@@ -12,7 +12,7 @@
 #' @return NULL
 #' @noRd
 
-create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update){
+create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_method="curl"){
     
     # set timeout to something high
     timeout <- getOption('timeout')
@@ -58,14 +58,14 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update){
         message("Downloading and writing fish data (~18 MB)")
         # download
         fish_dest <- file.path(tempdir(), "fishsurvey_compressed.rda")
-        t <- utils::download.file(binary_loc, mode="wb", method="curl", destfile = fish_dest)
+        t <- utils::download.file(binary_loc, mode="wb", method=download_method, destfile = fish_dest)
         # read
         load(fish_dest)
         
         
         length_loc <-  paste0("https://pasta.lternet.edu/package/data/eml/edi/1075/", revision, "/", edi_entity_pids$length)
         # download
-        utils::download.file(length_loc, mode="wb", method="curl", destfile=file.path(tempdir(), "Length_conversions.csv"))
+        utils::download.file(length_loc, mode="wb", method=download_method, destfile=file.path(tempdir(), "Length_conversions.csv"))
         # read
         lconv <- utils::read.csv(file.path(tempdir(), "Length_conversions.csv"))
         
@@ -144,19 +144,20 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update){
 #' @param edi_pid (char) Optionally, a way to specify a specific revision of the dataset, in the format "edi.1075.1"
 #' Leave parameter unset to get the latest revision.
 #' @param update (logical) If set to TRUE, will update to latest version from EDI if a newer version is available
+#' @param download_method value for the \code{method} parameter of the \code{\link[utils]{download.file}} function. 
 #' 
 #' @import arrow
 #' @return NULL
 #' @export
 #'
 
-create_fish_db <- function(edi_pid = NULL, update = FALSE){
+create_fish_db <- function(edi_pid = NULL, update = FALSE, download_method="curl"){
     
     if (is.null(edi_pid)){
         edi_pid <- get_latest_EDI_revision()
     }
     
-    create_fish_db_f(data_dir = NULL, cache_dir = "deltafish", edi_pid = edi_pid, update = update) 
+    create_fish_db_f(data_dir = NULL, cache_dir = "deltafish", edi_pid = edi_pid, update = update, download_method=download_method) 
     
 }
 

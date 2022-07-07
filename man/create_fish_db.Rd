@@ -4,13 +4,15 @@
 \alias{create_fish_db}
 \title{Create fish database}
 \usage{
-create_fish_db(edi_pid = NULL, update = FALSE)
+create_fish_db(edi_pid = NULL, update = FALSE, download_method = "curl")
 }
 \arguments{
 \item{edi_pid}{(char) Optionally, a way to specify a specific revision of the dataset, in the format "edi.1075.1"
 Leave parameter unset to get the latest revision.}
 
 \item{update}{(logical) If set to TRUE, will update to latest version from EDI if a newer version is available}
+
+\item{download_method}{value for the \code{method} parameter of the \code{\link[utils]{download.file}} function.}
 }
 \description{
 Function to create the arrow dataset. Reads in raw data from the
