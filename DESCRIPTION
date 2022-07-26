@@ -1,6 +1,6 @@
 Package: deltafish
 Title: Accesses an Integrated Fish Count and Length Dataset from the San Francisco Delta
-Version: 0.2.0
+Version: 0.2.0.9000
 Authors@R: 
     c(person(given = "Jeanette",
            family = "Clark",

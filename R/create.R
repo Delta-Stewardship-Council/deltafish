@@ -37,15 +37,20 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
     } else if (dir.exists(rappdirs::user_cache_dir(cache_dir)) &
                length(dir(rappdirs::user_cache_dir(cache_dir), recursive = TRUE)) > 0 &
                !update){
-        rev <- show_cached_revision(cache_dir)
-        message(paste("Reading data from cache directory, revision", rev))
-        return(rappdirs::user_cache_dir(cache_dir))
+        if(!file.exists(file.path(rappdirs::user_cache_dir(cache_dir), "revision.txt"))){
+            message("Unknown version installed. If you wish to re-install the cache with a known version, run clear_cache() then create_fish_db().")
+            return(rappdirs::user_cache_dir(cache_dir))
+        }else{
+            rev <- show_cached_revision(cache_dir)
+            message(paste("Reading data from cache directory, revision", rev))
+            return(rappdirs::user_cache_dir(cache_dir))
+        }
     }
-
+    
     
     edi_entity_pids <- get_edi_pids(edi_pid)
     revision <- strsplit(edi_pid, ".", fixed=T)[[1]][3]
-
+    
     message(paste("Getting data from EDI identifier", edi_pid))
     
     # download dataif no data_dir is set

@@ -1,3 +1,6 @@
+# deltafish (development version)
+
+* Fixed bug where `create_fish_db` failed when a prior cache was present without a revision file. 
 * Adding `download_method` parameter to `create_fish_db` to help users download files given their specific limitations
 
 # deltafish 0.2.0
