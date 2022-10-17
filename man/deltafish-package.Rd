@@ -20,7 +20,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Samuel M Bashevkin \email{sam.bashevkin@deltacouncil.ca.gov} (\href{https://orcid.org/0000-0001-7406-7089}{ORCID})
+\strong{Maintainer}: Samuel M Bashevkin \email{sam.bashevkin@waterboards.ca.gov} (\href{https://orcid.org/0000-0001-7406-7089}{ORCID})
 
 Authors:
 \itemize{

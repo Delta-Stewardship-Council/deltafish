@@ -10,13 +10,13 @@ Authors@R:
     person(given = "Samuel M",
            family = "Bashevkin",
            role = c("aut", "cre"),
-           email = "sam.bashevkin@deltacouncil.ca.gov",
+           email = "sam.bashevkin@waterboards.ca.gov",
            comment = c(ORCID = "https://orcid.org/0000-0001-7406-7089")))
 Description: This package enables streamlined access to a large (45 million observation) integrated fish dataset from the San Fransisco Delta. The package downloads published data and stores it in parquet files as an `arrow` dataset in a local cache. Helper functions enable efficient querying of this large dataset.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 URL: https://github.com/delta-stewardship-council/deltafish/, https://delta-stewardship-council.github.io/deltafish/
 BugReports: https://github.com/delta-stewardship-council/deltafish/issues
 Language: en-US
