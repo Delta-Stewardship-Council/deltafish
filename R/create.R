@@ -22,13 +22,15 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
     res_fish <- NULL
     res_survey <- NULL
     
-    up_to_date <- is_cache_updated()
-    
     # if the dataset is up to date, but user wants to update, 
     # print a message and set update to FALSE
-    if (up_to_date & update){
-        update <- FALSE
-        message("Dataset already up to date")
+    if(update){
+        up_to_date <- is_cache_updated()
+        
+        if (up_to_date){
+            update <- FALSE
+            message("Dataset already up to date")
+        }
     }
     
     # set up cache
