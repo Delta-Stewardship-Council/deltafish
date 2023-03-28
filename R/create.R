@@ -78,7 +78,7 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
     } else if (!is.null(data_dir)){
         
         if (!all(c("Length_conversions.csv", "fishsurvey_compressed.rda") %in% dir(data_dir))){
-            stop("Data directory must contain both length_conv.csv and fishsurvey_compressed.rda.")
+            stop("Data directory must contain both Length_conversions.csv and fishsurvey_compressed.rda.")
         }
         
         load(file.path(data_dir, "fishsurvey_compressed.rda"))
