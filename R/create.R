@@ -47,15 +47,14 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
         }
     }
     
-    
-    edi_entity_pids <- get_edi_pids(edi_pid)
-    revision <- strsplit(edi_pid, ".", fixed=T)[[1]][3]
-    
-    message(paste("Getting data from EDI identifier", edi_pid))
-    
     # download dataif no data_dir is set
     if (is.null(data_dir)){ 
-        #TODO: set up version checking for these URIs
+        
+        
+        edi_entity_pids <- get_edi_pids(edi_pid)
+        revision <- strsplit(edi_pid, ".", fixed=T)[[1]][3]
+        
+        message(paste("Getting data from EDI identifier", edi_pid))
         
         binary_loc <- paste0("https://pasta.lternet.edu/package/data/eml/edi/1075/", revision, "/", edi_entity_pids$compressed)
         
