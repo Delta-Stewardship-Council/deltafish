@@ -1,3 +1,7 @@
+library(testthat)
+library(deltafish)
+library(dplyr)
+
 cat("starting to create database")
 create_fish_db()
 cat("finished creating database")

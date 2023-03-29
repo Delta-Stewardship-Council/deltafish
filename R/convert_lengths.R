@@ -29,7 +29,7 @@ convert_lengths <- function(data){
     }
     if (!("Source" %in% names(data))){
         surv <- open_survey() %>% 
-            dplyr::select(.data$SampleID, .data$Source)
+            dplyr::select("SampleID", "Source")
         
         data_prep <- dplyr::left_join(data, surv)
     } else data_prep <- data
@@ -37,7 +37,7 @@ convert_lengths <- function(data){
     sources<-data_prep%>%
         dplyr::distinct(.data$Source)%>%
         dplyr::collect()%>%
-        dplyr::pull(.data$Source)
+        dplyr::pull("Source")
     
     if (!("Suisun" %in% sources)){
         warning("No Suisun data found in input data. This function only operates on Suisun data.")
@@ -50,19 +50,19 @@ convert_lengths <- function(data){
     sp <- l%>%
         dplyr::distinct(.data$Species)%>%
         dplyr::collect()%>%
-        dplyr::pull(.data$Species)
+        dplyr::pull("Species")
     
     data_f <- data_prep %>%
         dplyr::left_join(l, by = c("Taxa" = "Species")) %>%
         dplyr::mutate(Length = ifelse(.data$Source == "Suisun" & .data$Taxa %in% sp,
                                             .data$Intercept + .data$Slope * .data$Length,
                                             .data$Length)) %>%
-        dplyr::select(-.data$Intercept, -.data$Slope)
+        dplyr::select(-"Intercept", -"Slope")
     
     # if source wasn't in input data drop it
     if (!("Source" %in% names(data))){
         data_f <- data_f %>%
-            dplyr::select(-.data$Source)
+            dplyr::select(-"Source")
     }
     
     return(data_f)
