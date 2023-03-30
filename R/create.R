@@ -18,6 +18,12 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
     timeout <- getOption('timeout')
     options(timeout = 3600)
     
+    # Fix issue with Arrow 11 in Mac and (some) linux
+    if(check_os_ci()$os%in%c("darwin", "linux")){
+        arrow_threads <- getOption('arrow.use_threads')
+        options(arrow.use_threads = FALSE)
+    }
+    
     #Fixing R CMD check issue with global variable binding:
     res_fish <- NULL
     res_survey <- NULL
@@ -130,9 +136,13 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
     
     writeLines(edi_pid, file.path(rappdirs::user_cache_dir(cache_dir), "revision.txt"))
     
-    # reset timeout
+    # reset options
     options(timeout = timeout)
     gc()
+    
+    if(check_os_ci()$os%in%c("darwin", "linux")){
+        options(arrow.use_threads = arrow_threads)
+    }
     
     return(rappdirs::user_cache_dir(cache_dir))
 }
