@@ -113,7 +113,7 @@ test_that("convert_lengths works without 'Source' column", {
         filter(Taxa%in%"Alosa sapidissima")%>%
         compute()%>%
         convert_lengths()%>%
-        head()%>%
+        `[`(1:6,)%>%
         collect()
     
     expect_true(!"Source"%in%names(df_converted_nosource))
