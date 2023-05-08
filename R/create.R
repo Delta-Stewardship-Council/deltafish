@@ -92,7 +92,14 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
         
     }
     # write
-    arrow::write_dataset(res_fish, file.path(rappdirs::user_cache_dir(cache_dir), "fish"), partitioning = "Taxa")
+    
+    s_fish<-arrow::schema(SampleID  = arrow::string(),
+                          Taxa = arrow::string(),
+                          Length = arrow::float(),
+                          Count = arrow::float(),
+                          Notes_catch = arrow::string())
+    
+    arrow::write_dataset(arrow::arrow_table(res_fish, schema = s_fish), file.path(rappdirs::user_cache_dir(cache_dir), "fish"), partitioning = "Taxa")
     
     # clean up environment to save memory
     rm(res_fish)
@@ -100,7 +107,7 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
     
     timezone<-attr(res_survey$Datetime, "tzone")
     
-    s <- arrow::schema(Source = arrow::string(),
+    s_surv <- arrow::schema(Source = arrow::string(),
                        Station = arrow::string(),
                        Latitude = arrow::float(),     
                        Longitude = arrow::float(),
@@ -125,7 +132,7 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
                        Notes_flowmeter = arrow::string())
     
     
-    surv <- arrow::arrow_table(res_survey, schema = s)
+    surv <- arrow::arrow_table(res_survey, schema = s_surv)
     arrow::write_dataset(surv, file.path(rappdirs::user_cache_dir(cache_dir), "survey"), partitioning = "Source", existing_data_behavior = "overwrite")
     
     # length conversion
