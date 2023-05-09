@@ -93,7 +93,7 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
     }
     # write
     
-    s_fish<-arrow::schema(SampleID  = arrow::string(),
+    s_fish<-arrow::schema(SampleID  = arrow::large_utf8(),
                           Taxa = arrow::string(),
                           Length = arrow::float(),
                           Count = arrow::float(),
@@ -115,7 +115,7 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
                        Datetime = arrow::timestamp(timezone=timezone),
                        Survey  = arrow::int64(),
                        Depth  = arrow::float(),
-                       SampleID  = arrow::string(),
+                       SampleID  = arrow::large_utf8(),
                        Method  = arrow::string(),
                        Tide   = arrow::string(),
                        Sal_surf   = arrow::float(),
