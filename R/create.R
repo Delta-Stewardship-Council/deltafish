@@ -118,7 +118,7 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
     gc()
     
     timezone<-attr(res_survey$Datetime, "tzone")
-    
+    if(edi_pid=="edi.1075.1"){
     s_surv <- arrow::schema(Source = arrow::string(),
                             Station = arrow::string(),
                             Latitude = arrow::float(),     
@@ -142,7 +142,33 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
                             Tow_direction = arrow::string(),
                             Notes_tow = arrow::string(),
                             Notes_flowmeter = arrow::string())
-    
+    }else{
+        s_surv <- arrow::schema(Source = arrow::string(),
+                                Station = arrow::string(),
+                                Latitude = arrow::float(),     
+                                Longitude = arrow::float(),
+                                Date = arrow::date64(),
+                                Datetime = arrow::timestamp(timezone=timezone),
+                                Survey  = arrow::int64(),
+                                Depth  = arrow::float(),
+                                SampleID  = arrow::large_utf8(),
+                                Method  = arrow::string(),
+                                Tide   = arrow::string(),
+                                Sal_surf   = arrow::float(),
+                                Sal_bot   = arrow::float(),
+                                Temp_surf = arrow::float(),
+                                TurbidityNTU = arrow::float(),
+                                TurbidityFNU = arrow::float(),
+                                Secchi = arrow::float(),
+                                Secchi_estimated = arrow::boolean(),
+                                Tow_duration = arrow::float(),
+                                Tow_area  = arrow::float(),
+                                Tow_volume =arrow::float(),
+                                Cable_length = arrow::float(),
+                                Tow_direction = arrow::string(),
+                                Notes_tow = arrow::string(),
+                                Notes_flowmeter = arrow::string())
+    }
     
     surv <- arrow::arrow_table(res_survey, schema = s_surv)
     arrow::write_dataset(surv, file.path(rappdirs::user_cache_dir(cache_dir), "survey"), partitioning = "Source", existing_data_behavior = "overwrite")
