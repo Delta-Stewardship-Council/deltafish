@@ -31,7 +31,7 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
     # if the dataset is up to date, but user wants to update, 
     # print a message and set update to FALSE
     if(update){
-        up_to_date <- is_cache_updated()
+        up_to_date <- is_cache_updated(cache_dir)
         
         if (up_to_date){
             update <- FALSE
