@@ -47,7 +47,7 @@ test_that("input data without Suisun is returned with a warning", {
 })
 
 test_that("lengths are converted correctly", {
-    num_row <- df_converted_compare_s %>% summarize(n = n()) %>% collect()
+    num_row <- df_converted_compare_s %>% summarize(n = n()) %>% collect_data()
     expect_equal(num_row$n, 0)
 })
 
@@ -57,13 +57,13 @@ df_converted_col <- df_converted_s %>%
     select(Count) %>%
     compute() %>%
     dplyr::summarise(N = n(), Count_sum = sum(Count, na.rm = T)) %>%
-    collect()
+    collect_data()
 
 df_unconverted_col <- df_unconverted_s %>%
     select(Count) %>%
     compute() %>%
     dplyr::summarise(N = n(), Count_sum = sum(Count, na.rm = T)) %>%
-    collect()
+    collect_data()
 
 test_that("Converting lengths does not change the number of rows or columns or the total catch",
           {
@@ -78,7 +78,7 @@ test_that("Converting lengths does not change the number of rows or columns or t
 df_less_0 <- df_converted_s %>%
     dplyr::filter(Length <= 0) %>%
     select(Count) %>%
-    collect()
+    collect_data()
 
 test_that("Converting lengths does not induce lengths <= 0", {
     expect_equal(nrow(df_less_0), 0)
@@ -102,7 +102,7 @@ df_converted_compare <- fish %>%
     compute()
 
 test_that("Converting lengths does not affect non-Suisun data", {
-    num_row <- df_converted_compare %>% summarize(n = n()) %>% collect()
+    num_row <- df_converted_compare %>% summarize(n = n()) %>% collect_data()
     expect_equal(num_row$n, 0)
     
 })
@@ -123,7 +123,7 @@ test_that("convert_lengths works without 'Source' column", {
         compute() %>%
         convert_lengths() %>%
         head() %>%
-        collect()
+        collect_data()
     
     expect_true(!"Source" %in% colnames(df_converted_nosource))
     expect_gt(nrow(df_converted_nosource), 0)

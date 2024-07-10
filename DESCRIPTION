@@ -28,7 +28,8 @@ Imports:
     rlang,
     RSQLite,
     utils,
-    dplyr
+    dplyr,
+    lubridate
 Suggests: 
     testthat (>= 3.0.0),
     mockery,

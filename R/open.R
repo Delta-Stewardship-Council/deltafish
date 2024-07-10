@@ -20,6 +20,7 @@ open_database_f <- function(cache_dir){
 #' Connect to the fish database stored in local cache directory.
 #'
 #' @return con A DBI connection object
+#' @export
 
 open_database <- function(){
     cache_dir <- 'deltafish'
@@ -84,6 +85,33 @@ open_length_conv <- function(con){
     return(lconv)
 }
 
+#' Collect data into R
+#' 
+#' Collect data into R and convert dates/datetimes into the correct data types with the correct time zone. 
+#' It is recommended to use this function instead of \code{collect} because the database RSQLite does not
+#' support date and time data types, so they are stored as character vectors. 
+#' Although some date and time operations are still posssible, when you \code{collect} the dataset, the
+#' Date and Datetime columns will be character vectors. This function will convert those columns 
+#' (if they exist in your collected dataset) into the correct date and datetime format.
+#'
+#' @param data A DBI table that can be treated like a data.frame. See `open_fish()` and `open_survey()`
+#' @importFrom magrittr %>%
+#' @importFrom rlang .data
+#' @export
+collect_data <- function(data){
+    data%>%
+        dplyr::collect()%>%
+        {if("Date"%in%names(.)){
+            dplyr::mutate(., Date=lubridate::ymd(.data$Date, tz="America/Los_Angeles"))
+        }else{
+            .
+        }}%>%
+        {if("Datetime"%in%names(.)){
+            dplyr::mutate(., Datetime=lubridate::parse_date_time(.data$Datetime, orders=c("%Y-%m-%d %H:%M:%S", "%Y-%m-%d"), tz="America/Los_Angeles"))
+        }else{
+            .
+        }}
+}
 
 #' Close connection to database
 #' 

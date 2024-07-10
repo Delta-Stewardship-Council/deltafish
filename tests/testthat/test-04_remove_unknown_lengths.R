@@ -30,7 +30,7 @@ df_removed_nu <- fish %>%
                                        Count != 0), na.rm = T),
         N_0 = sum(as.integer(Count == 0))
     ) %>%
-    collect()
+    collect_data()
 
 df_removed_u <- fish %>%
     select(SampleID, Taxa, Count, Length) %>%
@@ -44,7 +44,7 @@ df_removed_u <- fish %>%
                                        Count != 0), na.rm = T),
         N_0 = sum(as.integer(Count == 0))
     ) %>%
-    collect()
+    collect_data()
 
 df_full <- fish  %>%
     select(Length, Count) %>%
@@ -55,7 +55,7 @@ df_full <- fish  %>%
                                        Count != 0), na.rm = T),
         N_0 = sum(as.integer(Count == 0))
     ) %>%
-    collect()
+    collect_data()
 
 
 test_that("remove_unknown_lengths removes rows as expected", {
