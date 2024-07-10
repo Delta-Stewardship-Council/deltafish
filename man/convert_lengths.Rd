@@ -7,10 +7,10 @@
 convert_lengths(data)
 }
 \arguments{
-\item{data}{An arrow dataset of fish data. See \code{open_fish()}}
+\item{data}{A DBI table that can be treated like a data.frame, with fish data. See \code{open_fish()}}
 }
 \value{
-data_conv An arrow dataset with converted lengths
+data_conv A DBI table with converted lengths
 }
 \description{
 Converts fish length data using the length conversion table. Returns an arrow dataset.
@@ -19,12 +19,13 @@ This function is only needed to convert Suisun survey data.
 \examples{
 \dontrun{
 library(dplyr)
-
-fish <- open_fish() \%>\% 
+con <- open_database()
+fish <- open_fish(con) \%>\% 
     filter(Taxa \%in\% c("Dorosoma petenense", "Morone saxatilis", "Spirinchus thaleichthys"))
 
 fish_conv <- convert_lengths(fish) \%>\% 
     collect()
+close_database(con)
 }
 
 }

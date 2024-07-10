@@ -7,8 +7,9 @@ create_fish_db()
 cat("finished creating database")
 
 cat("testing the outcome of create_fish_db")
-datetimes<-open_survey()%>%
-    distinct(Date, Datetime)%>%
+con <- open_database()
+datetimes <- open_survey(con) %>%
+    distinct(Date, Datetime) %>%
     collect()
 
 test_that("Date and Datetime columns are formatted correctly", {
@@ -17,17 +18,26 @@ test_that("Date and Datetime columns are formatted correctly", {
 })
 
 test_that("Timezone is correct", {
-    expect_equal(attr(datetimes$Datetime, "tzone"), "America/Los_Angeles")    
+    expect_equal(attr(datetimes$Datetime, "tzone"), "America/Los_Angeles")
 })
 
-test_that("up-to-date dataset with update=TRUE produces expected message", {
-    expect_message(create_fish_db(update=TRUE), "Dataset already up to date")
-})
+test_that("up-to-date dataset with update=TRUE produces expected message",
+          {
+              expect_message(create_fish_db(update = TRUE), "Dataset already up to date")
+          })
 
 test_that("bad data directory produces expected error", {
-    
-    expect_error(create_fish_db_f(data_dir = "test-dir", cache_dir="test", update=F, edi_pid="edi.1075.1"), 
-                 regexp=NULL)
+    expect_error(
+        create_fish_db_f(
+            data_dir = "test-dir",
+            cache_dir = "test",
+            update = F,
+            edi_pid = "edi.1075.1"
+        ),
+        regexp = NULL
+    )
 })
+
+close_database(con)
 
 cat("finished testing the outcome of create_fish_db")

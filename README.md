@@ -11,9 +11,9 @@ Credit to [Brian Mahardja](https://github.com/bmahardja) for the Delta Smelt dra
   [![Data DOI](https://img.shields.io/badge/Data%20publication%20DOI-10.6073/pasta/0cdf7e5e954be1798ab9bf4f23816e83-blue.svg)](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075)
 <!-- badges: end -->
 
-The goal of `deltafish` is to provide easy access to the [integrated San Fransisco estuary Delta fish dataset](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075&revision=1). This dataset is published, citeable, and documented on [EDI](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075&revision=1). The dataset contains around 45 million rows, which are not easily queryable with normal R techniques. `deltafish` utilizes the R implementation of [Apache Arrow](https://arrow.apache.org/docs/r/) and the [parquet](https://parquet.apache.org/documentation/latest/) data format, along with `dbplyr` to make the process of working with this large dataset much easier on a standard computer. 
+The goal of `deltafish` is to provide easy access to the [integrated San Fransisco estuary Delta fish dataset](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075&revision=1). This dataset is published, citeable, and documented on [EDI](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075&revision=1). The dataset contains around 45 million rows, which are not easily queryable with normal R techniques. `deltafish` utilizes [RSQLite](https://rsqlite.r-dbi.org/articles/RSQLite.html), along with `dbplyr` to make the process of working with this large dataset much easier on a standard computer. 
 
-You can use `dplyr` verbs to query the arrow dataset in much the same way as you would a `data.frame`. Instead of computing your function return value every time you execute a `dplyr` function call, however, `arrow` builds a query on the backend which is only run when you `collect()` the data. This means you execute far fewer queries and are able to work with the data much more efficiently.
+You can use `dplyr` verbs to query the database in much the same way as you would a `data.frame`. Instead of computing your function return value every time you execute a `dplyr` function call, however, `dbplyr` builds a query on the backend which is only run when you `collect()` the data. This means you execute far fewer queries and are able to work with the data much more efficiently.
 
 To begin, install the package as below and run `create_fish_db()`. This will download the data and create the arrow dataset.
 
@@ -50,10 +50,13 @@ Then open and query data.
 ```r
 # dplyr required for queries below
 library(dplyr)
+library(deltafish)
 
-# open our two data files
-surv <- open_survey()
-fish <- open_fish()
+con <- open_database()
+
+# open our two data tables
+surv <- open_survey(con)
+fish <- open_fish(con)
 
 # filter for sources and taxa of interest
 surv_FMWT <- surv %>% 
@@ -68,6 +71,8 @@ fish_smelt <- fish %>%
 # collect executes the sql query and gives you a table
 df <- left_join(surv_FMWT, fish_smelt) %>% 
     collect() 
+# close connection to database
+close_database(con)
 
 ```
 

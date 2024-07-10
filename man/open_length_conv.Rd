@@ -4,11 +4,14 @@
 \alias{open_length_conv}
 \title{Connect length conversion data}
 \usage{
-open_length_conv()
+open_length_conv(con)
+}
+\arguments{
+\item{con}{A DBI connection object from open_database()}
 }
 \value{
-An arrow object that can be treated like a data.frame, with length conversion data
+A DBI table that can be treated like a data.frame, with length conversion data
 }
 \description{
-Connect to the length conversion data stored in the package
+Connect to the length conversion table stored in the database
 }

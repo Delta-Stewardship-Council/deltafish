@@ -1,14 +1,14 @@
 #' Create fish database with file option
 #'
-#' Main function code to create the arrow dataset. Can look for data
-#' locally or on EDI. Only used to generate the datasets in a local cache.
+#' Main function code to create the SQLite Database. Can look for data
+#' locally or on EDI. Only used to generate the database in a local cache.
 #' 
 #' @param data_dir Directory to read data from
 #' @param cache_dir Directory to cache data into
 #' @param edi_pid Identifier of dataset to use from EDI
 #' @param update
 #' 
-#' @import arrow
+#' @import DBI
 #' @return NULL
 #' @noRd
 
@@ -17,12 +17,6 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
     # set timeout to something high
     timeout <- getOption('timeout')
     options(timeout = 3600)
-    
-    # Fix issue with Arrow 11 in Mac and (some) linux
-    if(check_os_ci()$os%in%c("darwin", "linux")){
-        arrow_threads <- getOption('arrow.use_threads')
-        options(arrow.use_threads = FALSE)
-    }
     
     #Fixing R CMD check issue with global variable binding:
     res_fish <- NULL
@@ -92,102 +86,27 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
         
     }
     # write
+    fishdb <- DBI::dbConnect(RSQLite::SQLite(), file.path(rappdirs::user_cache_dir(cache_dir), "deltafish.sqlite"), extended_types = TRUE)
     
-    if(edi_pid=="edi.1075.1"){
-        s_fish<-arrow::schema(SampleID  = arrow::large_utf8(),
-                              Taxa = arrow::string(),
-                              Length = arrow::float(),
-                              Count = arrow::float(),
-                              Notes_catch = arrow::string())
-        
-        arrow::write_dataset(arrow::arrow_table(res_fish, schema = s_fish), file.path(rappdirs::user_cache_dir(cache_dir), "fish"), partitioning = "Taxa")
-        
-    }else{
-        s_fish<-arrow::schema(Source = arrow::string(),
-                              SampleID  = arrow::large_utf8(),
-                              Taxa = arrow::string(),
-                              Length = arrow::float(),
-                              Count = arrow::float(),
-                              Notes_catch = arrow::string())
-        
-        arrow::write_dataset(arrow::arrow_table(res_fish, schema = s_fish), file.path(rappdirs::user_cache_dir(cache_dir), "fish"), partitioning = c("Source", "Taxa"))
-    }
+    res_survey$Date <- as.character(res_survey$Date)
+    res_survey$Datetime <- as.character(res_survey$Datetime)
+    
+    DBI::dbWriteTable(fishdb, "fish", res_fish)
+    DBI::dbWriteTable(fishdb, "survey", res_survey)
+    DBI::dbWriteTable(fishdb, "length_conversion", lconv)
+    DBI::dbDisconnect(fishdb)
+    
     
     # clean up environment to save memory
     rm(res_fish)
     gc()
     
-    timezone<-attr(res_survey$Datetime, "tzone")
-    if(edi_pid=="edi.1075.1"){
-    s_surv <- arrow::schema(Source = arrow::string(),
-                            Station = arrow::string(),
-                            Latitude = arrow::float(),     
-                            Longitude = arrow::float(),
-                            Date = arrow::date64(),
-                            Datetime = arrow::timestamp(timezone=timezone),
-                            Survey  = arrow::int64(),
-                            Depth  = arrow::float(),
-                            SampleID  = arrow::large_utf8(),
-                            Method  = arrow::string(),
-                            Tide   = arrow::string(),
-                            Sal_surf   = arrow::float(),
-                            Sal_bot   = arrow::float(),
-                            Temp_surf = arrow::float(),
-                            Secchi = arrow::float(),
-                            Secchi_estimated = arrow::boolean(),
-                            Tow_duration = arrow::float(),
-                            Tow_area  = arrow::float(),
-                            Tow_volume =arrow::float(),
-                            Cable_length = arrow::float(),
-                            Tow_direction = arrow::string(),
-                            Notes_tow = arrow::string(),
-                            Notes_flowmeter = arrow::string())
-    }else{
-        s_surv <- arrow::schema(Source = arrow::string(),
-                                Station = arrow::string(),
-                                Latitude = arrow::float(),     
-                                Longitude = arrow::float(),
-                                Date = arrow::date64(),
-                                Datetime = arrow::timestamp(timezone=timezone),
-                                Survey  = arrow::int64(),
-                                Depth  = arrow::float(),
-                                SampleID  = arrow::large_utf8(),
-                                Method  = arrow::string(),
-                                Tide   = arrow::string(),
-                                Sal_surf   = arrow::float(),
-                                Sal_bot   = arrow::float(),
-                                Temp_surf = arrow::float(),
-                                TurbidityNTU = arrow::float(),
-                                TurbidityFNU = arrow::float(),
-                                Secchi = arrow::float(),
-                                Secchi_estimated = arrow::boolean(),
-                                Tow_duration = arrow::float(),
-                                Tow_area  = arrow::float(),
-                                Tow_volume =arrow::float(),
-                                Cable_length = arrow::float(),
-                                Tow_direction = arrow::string(),
-                                Notes_tow = arrow::string(),
-                                Notes_flowmeter = arrow::string())
-    }
-    
-    surv <- arrow::arrow_table(res_survey, schema = s_surv)
-    arrow::write_dataset(surv, file.path(rappdirs::user_cache_dir(cache_dir), "survey"), partitioning = "Source", existing_data_behavior = "overwrite")
-    
-    # length conversion
-    
-    
-    # write
-    arrow::write_dataset(lconv, file.path(rappdirs::user_cache_dir(cache_dir), "length_conversion"))
     
     writeLines(edi_pid, file.path(rappdirs::user_cache_dir(cache_dir), "revision.txt"))
     
     # reset options
     options(timeout = timeout)
     gc()
-    
-    if(check_os_ci()$os%in%c("darwin", "linux")){
-        options(arrow.use_threads = arrow_threads)
-    }
     
     return(rappdirs::user_cache_dir(cache_dir))
 }
@@ -207,7 +126,6 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
 #' @param update (logical) If set to TRUE, will update to latest version from EDI if a newer version is available
 #' @param download_method value for the \code{method} parameter of the \code{\link[utils]{download.file}} function. 
 #' 
-#' @import arrow
 #' @return NULL
 #' @export
 #'

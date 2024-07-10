@@ -1,8 +1,8 @@
 #' Remove unknown fish lengths
 #' 
-#' Removes unknown fish lengths. Returns an arrow dataset.
+#' Removes unknown fish lengths. Returns a DBI table.
 #'
-#' @param data An arrow dataset of fish data. See `open_fish()`
+#' @param data A DBI table that can be treated like a data.frame, with fish data. See `open_fish()`
 #' @param univariate (logical) Will these data be used for univariate analyses 
 #' (\code{univariate=TRUE})? Or multi-species analyses (\code{univariate=FALSE})?
 #' If univariate, when a \code{Length_NA_flag=="Unknown length"} record is found, 
@@ -16,13 +16,13 @@
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 #' 
-#' @return data_known An arrow dataset with only known lenghts
+#' @return data_known A DBI table with only known lengths
 #' @export
 #'
 
 remove_unknown_lengths <- function(data, univariate){
     
-    if (!any(c("Length", "Count", "SampleID", "Taxa") %in% names(data))){
+    if (!any(c("Length", "Count", "SampleID", "Taxa") %in% colnames(data))){
         stop("Input data must have 'Length', 'Count', 'SampleID', and 'Taxa' column names")
     }
     
