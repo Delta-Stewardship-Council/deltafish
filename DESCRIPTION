@@ -29,7 +29,8 @@ Imports:
     RSQLite,
     utils,
     dplyr,
-    lubridate
+    lubridate,
+    dbplyr
 Suggests: 
     testthat (>= 3.0.0),
     mockery,
