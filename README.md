@@ -19,7 +19,7 @@ We recommend you use the `collect_data()` function from this package instead of 
 
 Unless you are familiar with SQLite, you may want to only perform simple operations such as `filter`, `select`, and `join` before you `collect_data()` and then can run any R operation on the dataset. You can perform more complex operations like `mutate` and `summarise` but some R expressions cannot be translated to SQLite and will return an error. If you are familiar with SQLite, you can alternatively interact with the database using SQLite queries through the `RSQLite` package. 
 
-To begin, install the package as below and run `create_fish_db()`. This will download the data and create the arrow dataset.
+To begin, install the package as below and run `create_fish_db()`. This will download the data and create the SQLite database.
 
 ## Installation
 
