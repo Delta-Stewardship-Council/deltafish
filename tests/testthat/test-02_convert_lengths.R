@@ -1,4 +1,4 @@
-cat("testing convert_lengths")
+cat("testing convert_lengths\n")
 require(dplyr)
 # lengths are converted correctly
 con <- open_database()
@@ -132,4 +132,4 @@ test_that("convert_lengths works without 'Source' column", {
 close_database(con)
 rm(list = ls())
 gc()
-cat("finished testing convert_lengths")
+cat("finished testing convert_lengths\n")

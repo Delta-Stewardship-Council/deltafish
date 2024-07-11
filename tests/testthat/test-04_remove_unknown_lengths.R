@@ -42,7 +42,7 @@ df_removed_u <- fish %>%
         N = n(),
         Length_NA = sum(as.integer(is.na(Length) &
                                        Count != 0), na.rm = T),
-        N_0 = sum(as.integer(Count == 0))
+        N_0 = sum(as.integer(Count == 0), na.rm = T)
     ) %>%
     collect_data()
 
@@ -77,4 +77,4 @@ test_that("Zero counts are retained by remove_unknown_lengths", {
 close_database(con)
 rm(list = ls())
 gc()
-cat("finished testing remove_unknown_lengths")
+cat("finished testing remove_unknown_lengths\n")

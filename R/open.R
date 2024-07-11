@@ -47,6 +47,10 @@ open_database <- function(){
 
 open_fish <- function(con, quiet=FALSE){
     
+    if(is.null(con)){
+        stop("argument 'con' must be provided. This should be the object created by open_database()")
+    }
+    
     if (!quiet){
         message("Note: fish length units are not all compatible across surveys. The Suisun study uses standard length while the other surveys use fork/total length. Use deltafish::convert_lengths to convert the length units of the 20 taxa for which we have conversion equations from standard length to fork/total length. ")
     }
@@ -66,6 +70,10 @@ open_fish <- function(con, quiet=FALSE){
 
 open_survey <- function(con){
     
+    if(is.null(con)){
+        stop("argument 'con' must be provided. This should be the object created by open_database()")
+    }
+    
     survey <- dplyr::tbl(con, "survey")
     return(survey)
 }
@@ -80,6 +88,10 @@ open_survey <- function(con){
 #' @export
 
 open_length_conv <- function(con){
+    
+    if(is.null(con)){
+        stop("argument 'con' must be provided. This should be the object created by open_database()")
+    }
     
     lconv <- dplyr::tbl(con, "length_conversion")
     return(lconv)
@@ -102,7 +114,7 @@ collect_data <- function(data){
     data%>%
         dplyr::collect()%>%
         {if("Date"%in%names(.)){
-            dplyr::mutate(., Date=lubridate::ymd(.data$Date, tz="America/Los_Angeles"))
+            dplyr::mutate(., Date=lubridate::ymd(.data$Date))
         }else{
             .
         }}%>%
@@ -121,5 +133,8 @@ collect_data <- function(data){
 #' 
 #' @export
 close_database <- function(con){
+    if(is.null(con)){
+        stop("argument 'con' must be provided. This should be the object created by open_database()")
+    }
     DBI::dbDisconnect(con)
 }

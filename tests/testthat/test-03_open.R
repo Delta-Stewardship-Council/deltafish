@@ -25,4 +25,5 @@ test_that("opening from a cache that doesn't exist returns an error", {
     expect_error(deltafish:::open_length_conv_f("foo"))
 })
 
-cat("finished testing the open functions")
+close_database(con)
+cat("finished testing the open functions\n")

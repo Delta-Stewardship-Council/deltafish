@@ -41,4 +41,4 @@ test_that("collect_data does not change number of rows with NA datetimes", {
 close_database(con)
 rm(list = ls())
 gc()
-cat("\nfinished testing collect_data")
+cat("\nfinished testing collect_data\n")

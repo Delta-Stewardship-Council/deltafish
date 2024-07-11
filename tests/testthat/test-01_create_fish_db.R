@@ -2,11 +2,11 @@ library(testthat)
 library(deltafish)
 library(dplyr)
 
-cat("starting to create database")
+cat("starting to create database\n")
 create_fish_db()
-cat("finished creating database")
+cat("finished creating database\n")
 
-cat("testing the outcome of create_fish_db")
+cat("testing the outcome of create_fish_db\n")
 con <- open_database()
 datetimes <- open_survey(con) %>%
     distinct(Date, Datetime) %>%
@@ -113,4 +113,4 @@ test_that("column types are correct", {
 
 close_database(con)
 
-cat("finished testing the outcome of create_fish_db")
+cat("finished testing the outcome of create_fish_db\n")

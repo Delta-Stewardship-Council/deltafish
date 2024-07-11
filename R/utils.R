@@ -96,8 +96,8 @@ is_cache_updated <- function(cache_dir = "deltafish") {
 file_remove_tryer <- function(x){
     
     tryCatch({file.remove(x)},
-             error = function(y){print(y); message("If you get a permissions error, try restarting R and then clearing your cache."); return(invisible(NULL))},
-             warning = function(y){print(y); message("If you get a permissions error, try restarting R and then clearing your cache."); return(invisible(NULL))}
+             error = function(y){print(y); message("If you get a permissions error, try running close_database(con), then trying again. Otherwise, try restarting R and then clearing your cache."); return(invisible(NULL))},
+             warning = function(y){print(y); message("If you get a permissions error, try running close_database(con), then trying again. Otherwise, try restarting R and then clearing your cache."); return(invisible(NULL))}
     )
     
 }
@@ -110,7 +110,7 @@ file_remove_tryer <- function(x){
 #'
 
 check_os_ci<-function(){
-    ci<-isTRUE(as.logical(Sys.getenv("CI")))
+    ci<-isTRUE(as.logical(Sys.getenv("CI", "false")))
     
     os<-tolower(Sys.info()[["sysname"]])
     
