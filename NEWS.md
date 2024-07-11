@@ -1,4 +1,10 @@
-# deltafish (development version)
+# deltafish 1.0.0
+
+## Major changes
+
+* Changed the backend from `arrow` to `RSQLight` to increase reliability and improve performance. Some changes to the interface were necessary to implement this and users should read the readme for updated instructions. 
+
+## Minor Changes
 
 * Fixed bug where `create_fish_db` failed when a prior cache was present without a revision file. 
 * Adding `download_method` parameter to `create_fish_db` to help users download files given their specific limitations
