@@ -24,14 +24,15 @@ Depends:
     dbplyr
 Imports:
     DBI,
+    dplyr,
     EDIutils,
+    hms,
+    lubridate,
     magrittr,
     rappdirs,
     rlang,
     RSQLite,
-    utils,
-    dplyr,
-    lubridate
+    utils
 Suggests: 
     testthat (>= 3.0.0),
     mockery,
