@@ -4,11 +4,16 @@
 \alias{open_fish}
 \title{Connect fish data}
 \usage{
-open_fish()
+open_fish(con, quiet = FALSE)
+}
+\arguments{
+\item{con}{A DBI connection object from open_database()}
+
+\item{quiet}{silence message about fish length units.}
 }
 \value{
-An arrow object that can be treated like a data.frame, with fish data
+A DBI table that can be treated like a data.frame, with fish data
 }
 \description{
-Connect to the fish data stored in the package
+Connect to the fish table stored in the database
 }

@@ -1,35 +1,40 @@
 Package: deltafish
 Title: Accesses an Integrated Fish Count and Length Dataset from the San Francisco Delta
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: 
     c(person(given = "Jeanette",
            family = "Clark",
-           role = c("aut", "cre"),
+           role = c("aut"),
            email = "jclark@nceas.ucsb.edu",
            comment = c(ORCID = "https://orcid.org/0000-0003-4703-1974")),
-    person(given = "Sam",
+    person(given = "Samuel M",
            family = "Bashevkin",
-           role = c("aut"),
-           email = "sam.bashevkin@deltacouncil.ca.gov",
+           role = c("aut", "cre"),
+           email = "sam.bashevkin@waterboards.ca.gov",
            comment = c(ORCID = "https://orcid.org/0000-0001-7406-7089")))
-Description: This package enables streamlined access to a large (70 million observation) integreated fish dataset from the San Fransisco Delta. The package downloads published data and stores it in parquet files as an `arrow` dataset in a local cache. Helper functions enable efficient querying of this large dataset.
+Description: This package enables streamlined access to a large (45 million observation) integrated fish dataset from the San Fransisco Delta. The package downloads published data and stores it in parquet files as an `arrow` dataset in a local cache. Helper functions enable efficient querying of this large dataset.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
-DataVersion: 0.1.0
+RoxygenNote: 7.3.2
+URL: https://github.com/delta-stewardship-council/deltafish/, https://delta-stewardship-council.github.io/deltafish/
+BugReports: https://github.com/delta-stewardship-council/deltafish/issues
+Language: en-US
 Depends:
-    arrow (>= 6.0.1),
-    dplyr,
     dbplyr
-Imports: 
-    duckdb,
+Imports:
+    DBI,
+    dplyr,
+    EDIutils,
+    lubridate,
     magrittr,
     rappdirs,
-    readr,
     rlang,
+    RSQLite,
     utils
 Suggests: 
-    tidyr,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    mockery,
+    covr,
+    hms
 Config/testthat/edition: 3

@@ -1,6 +1,5 @@
 library(testthat)
 library(deltafish)
-
-create_fish_db()
+library(dplyr)
 
 test_check("deltafish")

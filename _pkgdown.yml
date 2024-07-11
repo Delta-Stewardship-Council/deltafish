@@ -1,0 +1,20 @@
+url: https://delta-stewardship-council.github.io/deltafish/
+template:
+  bootstrap: 5
+reference:
+- title: "Creating and managing database"
+  contents: 
+  - create_fish_db
+  - clear_cache
+  - is_cache_updated
+  - show_cache
+  - show_cached_revision
+- title: "Accessing data"
+  contents:
+  - starts_with("open")
+  - close_database
+  - collect_data
+- title: "Helper functions for wrangling the database"
+  contents:
+  - convert_lengths
+  - remove_unknown_lengths
