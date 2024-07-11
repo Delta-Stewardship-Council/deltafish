@@ -20,24 +20,20 @@ if (sys$os == "windows" & sys$ci) {
 
 df_removed_nu <- fish %>%
     select(SampleID, Taxa, Count, Length) %>%
-    compute() %>%
     remove_unknown_lengths(univariate = FALSE) %>%
     select(Length, Count) %>%
-    compute() %>%
     summarise(
         N = n(),
         Length_NA = sum(as.integer(is.na(Length) &
                                        Count != 0), na.rm = T),
-        N_0 = sum(as.integer(Count == 0))
+        N_0 = sum(as.integer(Count == 0), na.rm = T)
     ) %>%
     collect_data()
 
 df_removed_u <- fish %>%
     select(SampleID, Taxa, Count, Length) %>%
-    compute() %>%
     remove_unknown_lengths(univariate = TRUE)  %>%
     select(Length, Count) %>%
-    compute() %>%
     summarise(
         N = n(),
         Length_NA = sum(as.integer(is.na(Length) &
@@ -48,12 +44,11 @@ df_removed_u <- fish %>%
 
 df_full <- fish  %>%
     select(Length, Count) %>%
-    compute() %>%
     summarise(
         N = n(),
         Length_NA = sum(as.integer(is.na(Length) &
                                        Count != 0), na.rm = T),
-        N_0 = sum(as.integer(Count == 0))
+        N_0 = sum(as.integer(Count == 0), na.rm=T)
     ) %>%
     collect_data()
 

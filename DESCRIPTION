@@ -26,7 +26,6 @@ Imports:
     DBI,
     dplyr,
     EDIutils,
-    hms,
     lubridate,
     magrittr,
     rappdirs,
@@ -36,5 +35,6 @@ Imports:
 Suggests: 
     testthat (>= 3.0.0),
     mockery,
-    covr
+    covr,
+    hms
 Config/testthat/edition: 3

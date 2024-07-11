@@ -18,19 +18,16 @@ df_unconverted_s <- fish %>%
 
 df_converted_compare_s <- df_unconverted_s %>%
     select(Taxa, Length, Source, Row) %>%
-    compute() %>%
     dplyr::left_join(length_conv, by = c("Taxa" = "Species")) %>%
     dplyr::mutate(Length_un = ifelse(is.na(Slope), Length, Length * Slope +
                                          Intercept)) %>%
     dplyr::left_join(df_converted_s %>%
-                         dplyr::select(Row, Length_con = Length) %>%
-                         compute(),
+                         dplyr::select(Row, Length_con = Length),
                      by = c("Row")) %>%
     dplyr::select(Length_con, Length_un) %>%
     mutate(missmatch = Length_con - Length_un) %>%
     filter(!(missmatch == 0 |
-                 (is.na(Length_con) & is.na(Length_un)))) %>%
-    compute()
+                 (is.na(Length_con) & is.na(Length_un))))
 
 test_that("convert_lengths errors if taxa not in data", {
     expect_error(convert_lengths(df_unconverted_s %>%
@@ -55,13 +52,11 @@ test_that("lengths are converted correctly", {
 
 df_converted_col <- df_converted_s %>%
     select(Count) %>%
-    compute() %>%
     dplyr::summarise(N = n(), Count_sum = sum(Count, na.rm = T)) %>%
     collect_data()
 
 df_unconverted_col <- df_unconverted_s %>%
     select(Count) %>%
-    compute() %>%
     dplyr::summarise(N = n(), Count_sum = sum(Count, na.rm = T)) %>%
     collect_data()
 
@@ -91,15 +86,13 @@ df_converted_compare <- fish %>%
     select(SampleID, Taxa, Length) %>%
     mutate(Length_o = Length) %>%
     dplyr::inner_join(surv %>%
-                          select(Source, SampleID) %>%
-                          compute()) %>%
+                          select(Source, SampleID)) %>%
     convert_lengths() %>%
     filter(Source != "Suisun") %>%
     dplyr::select(Length_con = Length, Length = Length_o) %>%
     mutate(missmatch = Length_con - Length) %>%
     filter(!(missmatch == 0 |
-                 (is.na(Length_con) & is.na(Length)))) %>%
-    compute()
+                 (is.na(Length_con) & is.na(Length))))
 
 test_that("Converting lengths does not affect non-Suisun data", {
     num_row <- df_converted_compare %>% summarize(n = n()) %>% collect_data()
@@ -120,7 +113,6 @@ test_that("convert_lengths fails when the required column colnames are not inclu
 test_that("convert_lengths works without 'Source' column", {
     df_converted_nosource <- open_fish(con, quiet = TRUE) %>%
         filter(Taxa %in% "Alosa sapidissima") %>%
-        compute() %>%
         convert_lengths() %>%
         head() %>%
         collect_data()
