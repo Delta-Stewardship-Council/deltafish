@@ -119,14 +119,13 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
 
 #' Create fish database
 #'
-#' Function to create the arrow dataset. Reads in raw data from the
+#' Function to create the fish database. Reads in raw data from the
 #' published [EDI dataset](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075&revision=1).
 #' 
 #' @param edi_pid (char) Optionally, a way to specify a specific revision of the dataset, in the format "edi.1075.1"
 #' Leave parameter unset to get the latest revision.
 #' @param update (logical) If set to TRUE, will update to latest version from EDI if a newer version is available
 #' @param download_method value for the \code{method} parameter of the \code{\link[utils]{download.file}} function. 
-#' 
 #' @return NULL
 #' @export
 #'
