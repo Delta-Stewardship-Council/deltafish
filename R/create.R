@@ -9,6 +9,7 @@
 #' @param update
 #' 
 #' @import DBI
+#' @import RSQLite
 #' @return NULL
 #' @noRd
 
