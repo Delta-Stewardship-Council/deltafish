@@ -1,21 +1,7 @@
 cat("testing remove_unknown_lengths")
-sys <- check_os_ci()
+
 con <- open_database()
-if (sys$os == "windows" & sys$ci) {
-  fish <- open_fish(con, quiet = TRUE) %>%
-    filter(
-      Taxa %in% c(
-        "Morone saxatilis",
-        "Oncorhynchus tshawytscha",
-        "Dorosoma petenense",
-        "Alosa sapidissima",
-        "Spirinchus thaleichthys"
-      ) &
-        !is.na(Count)
-    )
-} else {
-  fish <- open_fish(con, quiet = TRUE)
-}
+fish <- open_fish(con, quiet = TRUE)
 
 df_removed_nu <- fish %>%
   select(SampleID, Taxa, Count, Length) %>%
