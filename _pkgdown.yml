@@ -9,9 +9,11 @@ reference:
   - is_cache_updated
   - show_cache
   - show_cached_revision
-- title: "Opening data tables"
+- title: "Accessing data"
   contents:
   - starts_with("open")
+  - close_database
+  - collect_data
 - title: "Helper functions for wrangling the database"
   contents:
   - convert_lengths

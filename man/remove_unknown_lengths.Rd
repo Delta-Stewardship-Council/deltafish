@@ -7,7 +7,7 @@
 remove_unknown_lengths(data, univariate)
 }
 \arguments{
-\item{data}{An arrow dataset of fish data. See \code{open_fish()}}
+\item{data}{A DBI table that can be treated like a data.frame, with fish data. See \code{open_fish()}}
 
 \item{univariate}{(logical) Will these data be used for univariate analyses
 (\code{univariate=TRUE})? Or multi-species analyses (\code{univariate=FALSE})?
@@ -19,8 +19,8 @@ is removed and no 0s are filled in, since accurate community data cannot be
 confirmed for that sample.}
 }
 \value{
-data_known An arrow dataset with only known lenghts
+data_known A DBI table with only known lengths
 }
 \description{
-Removes unknown fish lengths. Returns an arrow dataset.
+Removes unknown fish lengths. Returns a DBI table.
 }

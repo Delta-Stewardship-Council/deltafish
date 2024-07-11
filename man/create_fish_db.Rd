@@ -15,6 +15,6 @@ Leave parameter unset to get the latest revision.}
 \item{download_method}{value for the \code{method} parameter of the \code{\link[utils]{download.file}} function.}
 }
 \description{
-Function to create the arrow dataset. Reads in raw data from the
+Function to create the fish database. Reads in raw data from the
 published \href{https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=1075&revision=1}{EDI dataset}.
 }

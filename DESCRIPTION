@@ -1,6 +1,6 @@
 Package: deltafish
 Title: Accesses an Integrated Fish Count and Length Dataset from the San Francisco Delta
-Version: 0.2.0.9000
+Version: 1.0.0
 Authors@R: 
     c(person(given = "Jeanette",
            family = "Clark",
@@ -16,21 +16,25 @@ Description: This package enables streamlined access to a large (45 million obse
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 URL: https://github.com/delta-stewardship-council/deltafish/, https://delta-stewardship-council.github.io/deltafish/
 BugReports: https://github.com/delta-stewardship-council/deltafish/issues
 Language: en-US
 Depends:
-    arrow (>= 8.0.0)
-Imports: 
+    dbplyr
+Imports:
+    DBI,
+    dplyr,
     EDIutils,
+    lubridate,
     magrittr,
     rappdirs,
     rlang,
-    utils,
-    dplyr
+    RSQLite,
+    utils
 Suggests: 
     testthat (>= 3.0.0),
     mockery,
-    covr
+    covr,
+    hms
 Config/testthat/edition: 3
