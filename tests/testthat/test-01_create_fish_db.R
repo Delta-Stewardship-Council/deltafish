@@ -2,7 +2,17 @@ library(testthat)
 library(deltafish)
 library(dplyr)
 cat("starting to create database\n")
-create_fish_db()
+local <- FALSE
+if (local) {
+  deltafish:::create_fish_db_f(
+    data_dir = file.path("~/LTMRdata/publication", "data_objects"),
+    cache_dir = "deltafish",
+    edi_pid = "edi.1075.2",
+    update = T
+  )
+} else {
+  create_fish_db()
+}
 cat("finished creating database\n")
 
 cat("testing the outcome of create_fish_db\n")

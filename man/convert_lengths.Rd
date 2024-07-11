@@ -20,11 +20,11 @@ This function is only needed to convert Suisun survey data.
 \dontrun{
 library(dplyr)
 con <- open_database()
-fish <- open_fish(con) \%>\% 
-    filter(Taxa \%in\% c("Dorosoma petenense", "Morone saxatilis", "Spirinchus thaleichthys"))
+fish <- open_fish(con) \%>\%
+  filter(Taxa \%in\% c("Dorosoma petenense", "Morone saxatilis", "Spirinchus thaleichthys"))
 
-fish_conv <- convert_lengths(fish) \%>\% 
-    collect()
+fish_conv <- convert_lengths(fish) \%>\%
+  collect()
 close_database(con)
 }
 
