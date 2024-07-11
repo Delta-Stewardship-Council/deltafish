@@ -4,7 +4,7 @@
 \alias{close_database}
 \title{Close connection to database}
 \usage{
-close_database(con)
+close_database(con = NULL)
 }
 \arguments{
 \item{con}{A DBI connection object from open_database()}

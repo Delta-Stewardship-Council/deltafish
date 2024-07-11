@@ -13,7 +13,9 @@ collect_data(data)
 Collect data into R and convert dates/datetimes into the correct data types with the correct time zone.
 It is recommended to use this function instead of \code{collect} because the database RSQLite does not
 support date and time data types, so they are stored as character vectors.
-Although some date and time operations are still posssible, when you \code{collect} the dataset, the
+Although some date and time operations are still possible, when you \code{collect} the dataset, the
 Date and Datetime columns will be character vectors. This function will convert those columns
 (if they exist in your collected dataset) into the correct date and datetime format.
+RSQLite also does not have a logical data type and logical values are stored as integers.
+Thus, the Secchi_estimated column is converted to logical by this function as well.
 }

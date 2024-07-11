@@ -45,7 +45,11 @@ open_database <- function() {
 #' @export
 
 open_fish <- function(con, quiet = FALSE) {
-  if (is.null(con)) {
+  if (any(lapply(show_cache(), tools::file_ext) == "parquet")) {
+    stop("Parquet files detected in cache. This version of deltafish uses SQLite as the backend. Please run clear_cache(), then create_fish_db() to update your local copy.")
+  }
+
+  if (missing(con)) {
     stop("argument 'con' must be provided. This should be the object created by open_database()")
   }
 
@@ -67,7 +71,11 @@ open_fish <- function(con, quiet = FALSE) {
 #' @export
 
 open_survey <- function(con) {
-  if (is.null(con)) {
+  if (any(lapply(show_cache(), tools::file_ext) == "parquet")) {
+    stop("Parquet files detected in cache. This version of deltafish uses SQLite as the backend. Please run clear_cache(), then create_fish_db() to update your local copy.")
+  }
+
+  if (missing(con)) {
     stop("argument 'con' must be provided. This should be the object created by open_database()")
   }
 
@@ -85,7 +93,11 @@ open_survey <- function(con) {
 #' @export
 
 open_length_conv <- function(con) {
-  if (is.null(con)) {
+  if (any(lapply(show_cache(), tools::file_ext) == "parquet")) {
+    stop("Parquet files detected in cache. This version of deltafish uses SQLite as the backend. Please run clear_cache(), then create_fish_db() to update your local copy.")
+  }
+
+  if (missing(con)) {
     stop("argument 'con' must be provided. This should be the object created by open_database()")
   }
 
@@ -98,9 +110,11 @@ open_length_conv <- function(con) {
 #' Collect data into R and convert dates/datetimes into the correct data types with the correct time zone.
 #' It is recommended to use this function instead of \code{collect} because the database RSQLite does not
 #' support date and time data types, so they are stored as character vectors.
-#' Although some date and time operations are still posssible, when you \code{collect} the dataset, the
+#' Although some date and time operations are still possible, when you \code{collect} the dataset, the
 #' Date and Datetime columns will be character vectors. This function will convert those columns
 #' (if they exist in your collected dataset) into the correct date and datetime format.
+#' RSQLite also does not have a logical data type and logical values are stored as integers.
+#' Thus, the Secchi_estimated column is converted to logical by this function as well.
 #'
 #' @param data A DBI table that can be treated like a data.frame. See `open_fish()` and `open_survey()`
 #' @importFrom magrittr %>%
@@ -122,6 +136,13 @@ collect_data <- function(data) {
       } else {
         .
       }
+    } %>%
+    {
+      if ("Secchi_estimated" %in% names(.)) {
+        dplyr::mutate(., Secchi_estimated = as.logical(.data$Secchi_estimated))
+      } else {
+        .
+      }
     }
 }
 
@@ -132,8 +153,8 @@ collect_data <- function(data) {
 #' @param con A DBI connection object from open_database()
 #'
 #' @export
-close_database <- function(con) {
-  if (is.null(con)) {
+close_database <- function(con = NULL) {
+  if (missing(con)) {
     stop("argument 'con' must be provided. This should be the object created by open_database()")
   }
   DBI::dbDisconnect(con)

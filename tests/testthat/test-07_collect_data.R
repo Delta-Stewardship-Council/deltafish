@@ -6,12 +6,13 @@ raw <- open_survey(con) %>%
   summarise(
     N = n(),
     N_NA_Date = sum(as.integer(is.na(Date)), na.rm = T),
-    N_NA_Datetime = sum(as.integer(is.na(Datetime)), na.rm = T)
+    N_NA_Datetime = sum(as.integer(is.na(Datetime)), na.rm = T),
+    N_SE_1 = sum(Secchi_estimated, na.rm = T)
   ) %>%
   collect()
 
-raw_no_dates <- open_survey(con) %>%
-  select(-Date, -Datetime) %>%
+raw_no_dates_SE <- open_survey(con) %>%
+  select(-Date, -Datetime, -Secchi_estimated) %>%
   collect()
 
 col <- open_survey(con) %>%
@@ -19,11 +20,12 @@ col <- open_survey(con) %>%
   summarise(
     N = n(),
     N_NA_Date = sum(as.integer(is.na(Date))),
-    N_NA_Datetime = sum(as.integer(is.na(Datetime)))
+    N_NA_Datetime = sum(as.integer(is.na(Datetime))),
+    N_SE_T = sum(Secchi_estimated, na.rm = T)
   )
 
-col_no_dates <- open_survey(con) %>%
-  select(-Date, -Datetime) %>%
+col_no_dates_SE <- open_survey(con) %>%
+  select(-Date, -Datetime, -Secchi_estimated) %>%
   collect_data()
 
 post_filt_date <- open_survey(con) %>%
@@ -56,7 +58,7 @@ test_that("collect_data does not change number of rows of survey dataset", {
 })
 
 test_that("collect_data does not change the dataset when the date and datetime columns are missing", {
-  expect_equal(raw_no_dates, col_no_dates)
+  expect_equal(raw_no_dates_SE, col_no_dates_SE)
 })
 
 test_that("collect_data does not change number of rows with NA dates", {
@@ -65,6 +67,10 @@ test_that("collect_data does not change number of rows with NA dates", {
 
 test_that("collect_data does not change number of rows with NA datetimes", {
   expect_equal(raw$N_NA_Datetime, col$N_NA_Datetime)
+})
+
+test_that("collect_data does not change number of TRUE values for Secchi_estimated", {
+  expect_equal(raw$N_SE_1, col$N_SE_T)
 })
 
 test_that("Filtering by date works correctly", {
