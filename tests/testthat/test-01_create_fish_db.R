@@ -1,7 +1,6 @@
 library(testthat)
 library(deltafish)
 library(dplyr)
-cat(sessionInfo())
 cat("starting to create database\n")
 create_fish_db()
 cat("finished creating database\n")
