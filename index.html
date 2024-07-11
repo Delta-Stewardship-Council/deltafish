@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="This package enables streamlined access to a large (45 million observation) integrated fish dataset from the San Fransisco Delta. The package downloads published data and stores it in parquet files as an `arrow` dataset in a local cache. Helper functions enable efficient querying of this large dataset.">
 <title>Accesses an Integrated Fish Count and Length Dataset from the San Francisco Delta • deltafish</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -15,55 +14,42 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Accesses an Integrated Fish Count and Length Dataset from the San Francisco Delta">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Accesses an Integrated Fish Count and Length Dataset from the San Francisco Delta">
+<meta name="description" content="This package enables streamlined access to a large (45 million observation) integrated fish dataset from the San Fransisco Delta. The package downloads published data and stores it in parquet files as an `arrow` dataset in a local cache. Helper functions enable efficient querying of this large dataset.">
 <meta property="og:description" content="This package enables streamlined access to a large (45 million observation) integrated fish dataset from the San Fransisco Delta. The package downloads published data and stores it in parquet files as an `arrow` dataset in a local cache. Helper functions enable efficient querying of this large dataset.">
 <meta property="og:image" content="https://delta-stewardship-council.github.io/deltafish/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="index.html">deltafish</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="reference/index.html">Reference</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/delta-stewardship-council/deltafish/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/delta-stewardship-council/deltafish/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-home">
 <div class="row">
@@ -76,9 +62,11 @@
 <p>Credit to <a href="https://github.com/bmahardja" class="external-link">Brian Mahardja</a> for the Delta Smelt drawing in the logo.</p>
 <!-- badges: start -->
 
-<p>The goal of <code>deltafish</code> is to provide easy access to the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=edi&amp;identifier=1075&amp;revision=1" class="external-link">integrated San Fransisco estuary Delta fish dataset</a>. This dataset is published, citeable, and documented on <a href="https://portal.edirepository.org/nis/mapbrowse?scope=edi&amp;identifier=1075&amp;revision=1" class="external-link">EDI</a>. The dataset contains around 45 million rows, which are not easily queryable with normal R techniques. <code>deltafish</code> utilizes the R implementation of <a href="https://arrow.apache.org/docs/r/" class="external-link">Apache Arrow</a> and the <a href="https://parquet.apache.org/documentation/latest/" class="external-link">parquet</a> data format, along with <code>dbplyr</code> to make the process of working with this large dataset much easier on a standard computer.</p>
-<p>You can use <code>dplyr</code> verbs to query the arrow dataset in much the same way as you would a <code>data.frame</code>. Instead of computing your function return value every time you execute a <code>dplyr</code> function call, however, <code>arrow</code> builds a query on the backend which is only run when you <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code> the data. This means you execute far fewer queries and are able to work with the data much more efficiently.</p>
-<p>To begin, install the package as below and run <code><a href="reference/create_fish_db.html">create_fish_db()</a></code>. This will download the data and create the arrow dataset.</p>
+<p>The goal of <code>deltafish</code> is to provide easy access to the <a href="https://portal.edirepository.org/nis/mapbrowse?scope=edi&amp;identifier=1075&amp;revision=1" class="external-link">integrated San Fransisco estuary Delta fish dataset</a>. This dataset is published, citeable, and documented on <a href="https://portal.edirepository.org/nis/mapbrowse?scope=edi&amp;identifier=1075&amp;revision=1" class="external-link">EDI</a>. The dataset contains around 45 million rows, which are not easily queryable with normal R techniques. <code>deltafish</code> utilizes <a href="https://rsqlite.r-dbi.org/articles/RSQLite.html" class="external-link">RSQLite</a>, along with <code>dbplyr</code> to make the process of working with this large dataset much easier on a standard computer.</p>
+<p>You can use <code>dplyr</code> verbs to query the database in much the same way as you would a <code>data.frame</code>. Instead of computing your function return value every time you execute a <code>dplyr</code> function call, however, <code>dbplyr</code> builds a query on the backend which is only run when you <code><a href="reference/collect_data.html">collect_data()</a></code> the data. This means you execute far fewer queries and are able to work with the data much more efficiently.</p>
+<p>We recommend you use the <code><a href="reference/collect_data.html">collect_data()</a></code> function from this package instead of the <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code> function from <code>dplyr</code> because <code><a href="reference/collect_data.html">collect_data()</a></code> will convert the Date and Datetime columns in your dataset, if present, into the appropriate format with the appropriate time zone. This is necessary because SQLite does not have a data format for dates and datetimes. Instead, those columns are stored as text. SQLite can still perform some operations on them (e.g., you can filter based on date as in the example below), but they remained stored as text instead of date and datetime formats.</p>
+<p>Unless you are familiar with SQLite, you may want to only perform simple operations such as <code>filter</code>, <code>select</code>, and <code>join</code> before you <code><a href="reference/collect_data.html">collect_data()</a></code> and then can run any R operation on the dataset. You can perform more complex operations like <code>mutate</code> and <code>summarise</code> but some R expressions cannot be translated to SQLite and will return an error. If you are familiar with SQLite, you can alternatively interact with the database using SQLite queries through the <code>RSQLite</code> package.</p>
+<p>To begin, install the package as below and run <code><a href="reference/create_fish_db.html">create_fish_db()</a></code>. This will download the data and create the SQLite database.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -102,33 +90,41 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/delta-stewardship-council/deltafish/" class="external-link">deltafish</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/create_fish_db.html">create_fish_db</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Then open and query data.</p>
+<p>Then open and query data. You have to first open a connection to the database with <code><a href="reference/open_database.html">open_database()</a></code></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># dplyr required for queries below</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/delta-stewardship-council/deltafish/" class="external-link">deltafish</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># open our two data files</span></span>
-<span><span class="va">surv</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/open_survey.html">open_survey</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/open_fish.html">open_fish</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/open_database.html">open_database</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># open our two data tables</span></span>
+<span><span class="va">surv</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/open_survey.html">open_survey</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span>
+<span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/open_fish.html">open_fish</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># filter for sources and taxa of interest</span></span>
+<span><span class="co"># Also filter for dates of interest. Although dates and datetimes are stored as text in the dataset,</span></span>
+<span><span class="co"># you can still filter on them using text strings in the "YYYY-MM-DD" or "YYYY-MM-DD HH:MM:SS" format.</span></span>
+<span></span>
 <span><span class="va">surv_FMWT</span> <span class="op">&lt;-</span> <span class="va">surv</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Source</span> <span class="op">==</span> <span class="st">"FMWT"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Source</span> <span class="op">==</span> <span class="st">"FMWT"</span> <span class="op">&amp;</span> <span class="va">Date</span> <span class="op">&gt;</span> <span class="st">"1999-01-01"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">SampleID</span>, <span class="va">Date</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fish_smelt</span> <span class="op">&lt;-</span> <span class="va">fish</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Taxa</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dorosoma petenense"</span>, <span class="st">"Morone saxatilis"</span>, <span class="st">"Spirinchus thaleichthys"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="co"># do a join and collect the resulting data frame</span></span>
-<span><span class="co"># collect executes the sql query and gives you a table</span></span>
+<span><span class="co"># do a join and collect_data the resulting data frame</span></span>
+<span><span class="co"># collect_data executes the sql query, converts Date and Datetime columns to the correct format and timezone, and gives you a table</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">surv_FMWT</span>, <span class="va">fish_smelt</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<span>    <span class="fu"><a href="reference/collect_data.html">collect_data</a></span><span class="op">(</span><span class="op">)</span> </span>
+<span><span class="co"># close connection to database</span></span>
+<span><span class="fu"><a href="reference/close_database.html">close_database</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="data-updating-and-versioning">Data updating and versioning<a class="anchor" aria-label="anchor" href="#data-updating-and-versioning"></a>
 </h2>
-<p>When the integrated dataset is updated, you do not need to update your installation of the <code>deltafish</code> package. Instead, you can access the latest data by re-building the cached database via</p>
+<p>When the integrated dataset is updated, you do not necessarily need to update your installation of the <code>deltafish</code> package, although you will need to use a version equal to or greater than 1 to work with the data publication version 2 or later. You can access the latest data by re-building the cached database via</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/delta-stewardship-council/deltafish/" class="external-link">deltafish</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/create_fish_db.html">create_fish_db</a></span><span class="op">(</span>update<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -193,15 +189,15 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>

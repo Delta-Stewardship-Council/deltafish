@@ -1,9 +1,8 @@
 pandoc: 3.1.11
-pkgdown: 2.0.9
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-06-20T20:10Z
+last_built: 2024-07-11T21:56Z
 urls:
   reference: https://delta-stewardship-council.github.io/deltafish/reference
   article: https://delta-stewardship-council.github.io/deltafish/articles
-

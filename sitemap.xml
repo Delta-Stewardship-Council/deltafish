@@ -1,57 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/404.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/index.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/reference/clear_cache.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/reference/convert_lengths.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/reference/create_fish_db.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/reference/deltafish-package.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/reference/is_cache_updated.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/reference/open_fish.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/reference/open_length_conv.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/reference/open_survey.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/reference/remove_unknown_lengths.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/reference/show_cache.html</loc>
-  </url>
-  <url>
-    <loc>https://delta-stewardship-council.github.io/deltafish/reference/show_cached_revision.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/404.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/LICENSE-text.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/LICENSE.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/authors.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/index.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/news/index.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/clear_cache.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/close_database.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/collect_data.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/convert_lengths.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/create_fish_db.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/deltafish-package.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/index.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/is_cache_updated.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/open_database.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/open_fish.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/open_length_conv.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/open_survey.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/remove_unknown_lengths.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/show_cache.html</loc></url>
+<url><loc>https://delta-stewardship-council.github.io/deltafish/reference/show_cached_revision.html</loc></url>
 </urlset>
+
