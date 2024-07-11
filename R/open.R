@@ -4,137 +4,137 @@
 #' @return con A DBI connection object
 #' @noRd
 
-open_database_f <- function(cache_dir){
-    
-    if (!(dir.exists(rappdirs::user_cache_dir(cache_dir)))){
-        stop("Cache directory does not exist. Try running `create_fish_db().")
-    }
-    
-    con <- DBI::dbConnect(RSQLite::SQLite(), dbname = file.path(rappdirs::user_cache_dir(cache_dir), "deltafish.sqlite"), extended_types = TRUE)
-    
-    return(con)
+open_database_f <- function(cache_dir) {
+  if (!(dir.exists(rappdirs::user_cache_dir(cache_dir)))) {
+    stop("Cache directory does not exist. Try running `create_fish_db().")
+  }
+
+  con <- DBI::dbConnect(RSQLite::SQLite(), dbname = file.path(rappdirs::user_cache_dir(cache_dir), "deltafish.sqlite"), extended_types = TRUE)
+
+  return(con)
 }
 
 #' Connect to database
-#' 
+#'
 #' Connect to the fish database stored in local cache directory.
 #'
 #' @return con A DBI connection object
 #' @export
 
-open_database <- function(){
-    cache_dir <- 'deltafish'
-    
-    if (!(dir.exists(rappdirs::user_cache_dir(cache_dir)))){
-        stop("Cache directory does not exist. Try running `create_fish_db().")
-    }
+open_database <- function() {
+  cache_dir <- "deltafish"
 
-    con <- open_database_f(cache_dir)
-    
-    return(con)
+  if (!(dir.exists(rappdirs::user_cache_dir(cache_dir)))) {
+    stop("Cache directory does not exist. Try running `create_fish_db().")
+  }
+
+  con <- open_database_f(cache_dir)
+
+  return(con)
 }
 
 
 #' Connect fish data
-#' 
+#'
 #' Connect to the fish table stored in the database
-#' 
+#'
 #' @param con A DBI connection object from open_database()
-#' @param quiet silence message about fish length units.  
+#' @param quiet silence message about fish length units.
 #' @import dbplyr
 #' @return A DBI table that can be treated like a data.frame, with fish data
 #' @export
 
-open_fish <- function(con, quiet=FALSE){
-    
-    if(is.null(con)){
-        stop("argument 'con' must be provided. This should be the object created by open_database()")
-    }
-    
-    if (!quiet){
-        message("Note: fish length units are not all compatible across surveys. The Suisun study uses standard length while the other surveys use fork/total length. Use deltafish::convert_lengths to convert the length units of the 20 taxa for which we have conversion equations from standard length to fork/total length. ")
-    }
-    
-    fish <- dplyr::tbl(con, "fish")
-    return(fish)
+open_fish <- function(con, quiet = FALSE) {
+  if (is.null(con)) {
+    stop("argument 'con' must be provided. This should be the object created by open_database()")
+  }
+
+  if (!quiet) {
+    message("Note: fish length units are not all compatible across surveys. The Suisun study uses standard length while the other surveys use fork/total length. Use deltafish::convert_lengths to convert the length units of the 20 taxa for which we have conversion equations from standard length to fork/total length. ")
+  }
+
+  fish <- dplyr::tbl(con, "fish")
+  return(fish)
 }
 
 #' Connect survey data
-#' 
+#'
 #' Connect to the survey table stored in the database
-#' 
+#'
 #' @param con A DBI connection object from open_database()
 #' @import dbplyr
 #' @return A DBI table that can be treated like a data.frame, with survey data
 #' @export
 
-open_survey <- function(con){
-    
-    if(is.null(con)){
-        stop("argument 'con' must be provided. This should be the object created by open_database()")
-    }
-    
-    survey <- dplyr::tbl(con, "survey")
-    return(survey)
+open_survey <- function(con) {
+  if (is.null(con)) {
+    stop("argument 'con' must be provided. This should be the object created by open_database()")
+  }
+
+  survey <- dplyr::tbl(con, "survey")
+  return(survey)
 }
 
 #' Connect length conversion data
-#' 
+#'
 #' Connect to the length conversion table stored in the database
-#' 
+#'
 #' @param con A DBI connection object from open_database()
 #' @import dbplyr
 #' @return A DBI table that can be treated like a data.frame, with length conversion data
 #' @export
 
-open_length_conv <- function(con){
-    
-    if(is.null(con)){
-        stop("argument 'con' must be provided. This should be the object created by open_database()")
-    }
-    
-    lconv <- dplyr::tbl(con, "length_conversion")
-    return(lconv)
+open_length_conv <- function(con) {
+  if (is.null(con)) {
+    stop("argument 'con' must be provided. This should be the object created by open_database()")
+  }
+
+  lconv <- dplyr::tbl(con, "length_conversion")
+  return(lconv)
 }
 
 #' Collect data into R
-#' 
-#' Collect data into R and convert dates/datetimes into the correct data types with the correct time zone. 
+#'
+#' Collect data into R and convert dates/datetimes into the correct data types with the correct time zone.
 #' It is recommended to use this function instead of \code{collect} because the database RSQLite does not
-#' support date and time data types, so they are stored as character vectors. 
+#' support date and time data types, so they are stored as character vectors.
 #' Although some date and time operations are still posssible, when you \code{collect} the dataset, the
-#' Date and Datetime columns will be character vectors. This function will convert those columns 
+#' Date and Datetime columns will be character vectors. This function will convert those columns
 #' (if they exist in your collected dataset) into the correct date and datetime format.
 #'
 #' @param data A DBI table that can be treated like a data.frame. See `open_fish()` and `open_survey()`
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 #' @export
-collect_data <- function(data){
-    data%>%
-        dplyr::collect()%>%
-        {if("Date"%in%names(.)){
-            dplyr::mutate(., Date=lubridate::ymd(.data$Date))
-        }else{
-            .
-        }}%>%
-        {if("Datetime"%in%names(.)){
-            dplyr::mutate(., Datetime=lubridate::parse_date_time(.data$Datetime, orders=c("%Y-%m-%d %H:%M:%S", "%Y-%m-%d"), tz="America/Los_Angeles"))
-        }else{
-            .
-        }}
+collect_data <- function(data) {
+  data %>%
+    dplyr::collect() %>%
+    {
+      if ("Date" %in% names(.)) {
+        dplyr::mutate(., Date = lubridate::ymd(.data$Date))
+      } else {
+        .
+      }
+    } %>%
+    {
+      if ("Datetime" %in% names(.)) {
+        dplyr::mutate(., Datetime = lubridate::parse_date_time(.data$Datetime, orders = c("%Y-%m-%d %H:%M:%S", "%Y-%m-%d"), tz = "America/Los_Angeles"))
+      } else {
+        .
+      }
+    }
 }
 
 #' Close connection to database
-#' 
+#'
 #' Close connection to SQLite database. Recommended at the end of every session.
 #'
 #' @param con A DBI connection object from open_database()
-#' 
+#'
 #' @export
-close_database <- function(con){
-    if(is.null(con)){
-        stop("argument 'con' must be provided. This should be the object created by open_database()")
-    }
-    DBI::dbDisconnect(con)
+close_database <- function(con) {
+  if (is.null(con)) {
+    stop("argument 'con' must be provided. This should be the object created by open_database()")
+  }
+  DBI::dbDisconnect(con)
 }
