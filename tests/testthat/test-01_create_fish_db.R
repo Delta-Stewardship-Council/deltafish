@@ -7,7 +7,7 @@ if (local) {
   deltafish:::create_fish_db_f(
     data_dir = file.path("~/LTMRdata/publication", "data_objects"),
     cache_dir = "deltafish",
-    edi_pid = "edi.1075.2",
+    edi_pid = "edi.1075.3",
     update = T
   )
 } else {

@@ -49,7 +49,7 @@ create_fish_db_f <- function(data_dir, cache_dir, edi_pid, update, download_meth
     }
   }
 
-  # download dataif no data_dir is set
+  # download data if no data_dir is set
   if (is.null(data_dir)) {
     edi_entity_pids <- get_edi_pids(edi_pid)
     revision <- strsplit(edi_pid, ".", fixed = T)[[1]][3]

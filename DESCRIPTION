@@ -36,5 +36,6 @@ Suggests:
     testthat (>= 3.0.0),
     mockery,
     covr,
-    hms
+    hms,
+    withr
 Config/testthat/edition: 3
