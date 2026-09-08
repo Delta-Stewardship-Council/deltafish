@@ -27,6 +27,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      EDI_API_KEY: ${{ secrets.EDI_API_KEY }}
 
     steps:
       - uses: actions/checkout@v2
@@ -38,6 +39,11 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
+      
+      - name: Create and populate .Renviron file
+        run: |
+          echo EDI_API_KEY="$EDI_API_KEY" >> ~/.Renviron
+        shell: bash
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:

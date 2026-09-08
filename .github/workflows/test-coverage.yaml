@@ -5,7 +5,7 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
-
+    
 name: test-coverage
 
 jobs:
@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      EDI_API_KEY: ${{ secrets.EDI_API_KEY }}
 
     steps:
       - uses: actions/checkout@v2
@@ -25,6 +26,11 @@ jobs:
         with:
           extra-packages: any::covr
           needs: coverage
+          
+      - name: Create and populate .Renviron file
+        run: |
+          echo EDI_API_KEY="$EDI_API_KEY" >> ~/.Renviron
+        shell: bash
 
       - name: Test coverage
         run: covr::codecov(quiet = FALSE)
