@@ -1,3 +1,11 @@
+# deltafish development
+
+## Major Changes
+
+* Changed method of importing data from EDI to use the `EDIutils` package, in order to handle new requirements for an API access key.
+* Added function to check for a valid API access key. 
+* Removed the `download_method` parameter from `create_fish_db` since data are now ingested via the `EDIutils` package.
+
 # deltafish 1.0.0
 
 ## Major changes

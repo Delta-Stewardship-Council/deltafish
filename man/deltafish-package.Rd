@@ -24,6 +24,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Samuel M Bashevkin \email{sam.bashevkin@waterboards.ca.gov} (\href{https://orcid.org/0000-0001-7406-7089}{ORCID})
   \item Jeanette Clark \email{jclark@nceas.ucsb.edu} (\href{https://orcid.org/0000-0003-4703-1974}{ORCID})
 }
 
